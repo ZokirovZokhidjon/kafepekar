@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ 1 — Кафе Эгаси Кабинети</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #c5a059; --gold-dim: rgba(197, 160, 89, 0.35); --dark-bg: #120d0a; --panel-bg: rgba(27, 20, 16, 0.92); --text-light: #f4efe6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Montserrat', sans-serif; min-height: 100vh; position: relative; overflow-x: hidden; }
+
+        .admin-bg-slider { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
+        .admin-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
+        .admin-slide.active { opacity: 1; }
+        .admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(18, 13, 10, 0.85); z-index: -1; }
+
+        .wrapper-padding { padding: 30px 20px; position: relative; z-index: 2; }
+        .login-wrapper { max-width: 420px; margin: 12vh auto; background: var(--panel-bg); border: 2px solid var(--gold); padding: 40px 30px; text-align: center; }
+        .login-wrapper h2 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; }
+        .login-wrapper p { font-size: 13px; color: #aaa; margin-bottom: 25px; }
+        .login-wrapper input { width: 100%; padding: 14px; background: var(--dark-bg); border: 1px solid var(--gold-dim); color: #fff; font-size: 16px; text-align: center; margin-bottom: 18px; font-family: inherit; }
+        .btn-gold { width: 100%; padding: 14px; background: var(--gold); color: #120d0a; border: none; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; }
+        
+        .dashboard { display: none; max-width: 1000px; margin: 0 auto; }
+        .dash-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold-dim); padding: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 10px; background: var(--panel-bg); border: 1px solid var(--gold-dim); }
+        .dash-header h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.6rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: var(--panel-bg); border: 1px solid var(--gold-dim); padding: 20px; }
+        .stat-card span { font-size: 12px; color: #aaa; text-transform: uppercase; }
+        .stat-card h3 { font-size: 1.5rem; margin-top: 8px; color: var(--gold); }
+        .calc-form { background: var(--panel-bg); border: 1px solid var(--gold); padding: 25px; margin-bottom: 30px; display: grid; grid-template-columns: 1fr 2fr 1.5fr 1fr; gap: 12px; }
+        @media(max-width: 768px) { .calc-form { grid-template-columns: 1fr; } }
+        .calc-form select, .calc-form input { background: var(--dark-bg); border: 1px solid var(--gold-dim); color: #fff; padding: 12px; font-family: inherit; }
+        .table-wrap { overflow-x: auto; background: var(--panel-bg); border: 1px solid var(--gold-dim); }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        th, td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        th { color: var(--gold); font-family: 'Cinzel', serif; background: rgba(0,0,0,0.4); }
+        .type-in { color: #2ecc71; font-weight: 600; }
+        .type-out { color: #e74c3c; font-weight: 600; }
+        .action-btn { background: transparent; border: 1px solid #666; color: #ddd; padding: 5px 10px; cursor: pointer; font-size: 12px; margin-right: 5px; transition: 0.3s; }
+        .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        #custom-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .popup-content { background: var(--panel-bg); border: 2px solid var(--gold); padding: 30px; max-width: 400px; width: 90%; text-align: center; }
+        .popup-icon { font-size: 42px; margin-bottom: 10px; }
+        .popup-content h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; font-size: 1.3rem; }
+        .popup-content p { font-size: 14px; color: #ccc; margin-bottom: 25px; line-height: 1.5; }
+        .popup-buttons { display: flex; gap: 10px; justify-content: center; }
+        .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 10px 22px; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+        .popup-btn-cancel { background: transparent; border: 1px solid #777; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="admin-bg-slider">
+        <div class="admin-slide active" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="admin-slide" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="admin-slide" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1920&q=80');"></div>
+    </div>
+    <div class="admin-overlay"></div>
+
+    <div class="wrapper-padding">
+        <div id="login-screen" class="login-wrapper">
+            <h2>Кафе Эгаси Кабинети</h2>
+            <p>Фақат эгасининг махсус телефон рақами орқали кирилади</p>
+            <input type="tel" id="owner-phone" placeholder="+998 90 797 11 46" value="+998 ">
+            <button class="btn-gold" onclick="loginOwner()">Кириш</button>
+            <a href="index.html" style="display:inline-block;margin-top:20px;color:#999;text-decoration:none;font-size:13px;">← Сайтга қайтиш</a>
+        </div>
+
+        <div id="dashboard-screen" class="dashboard">
+            <div class="dash-header">
+                <div>
+                    <h1>Кунлик Ҳисоб-Китоб (Эгаси)</h1>
+                    <small id="logged-phone" style="color:#aaa;"></small>
+                </div>
+                <div>
+                    <a href="index.html" class="action-btn" style="text-decoration:none;padding:8px 14px;">Сайтга ўтиш</a>
+                    <button class="action-btn" style="padding:8px 14px;" onclick="logoutOwner()">Чиқиш</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card"><span>Кунлик Кирим (Савдо)</span><h3 id="total-income" style="color:#2ecc71;">0 сўм</h3></div>
+                <div class="stat-card"><span>Кунлик Чиқим (Харажат)</span><h3 id="total-expense" style="color:#e74c3c;">0 сўм</h3></div>
+                <div class="stat-card"><span>Соф Қолдиқ (Фойда)</span><h3 id="net-profit">0 сўм</h3></div>
+            </div>
+
+            <div class="calc-form">
+                <select id="entry-type">
+                    <option value="income">Кирим (+)</option>
+                    <option value="expense">Чиқим (-)</option>
+                </select>
+                <input type="text" id="entry-desc" placeholder="Изоҳ (масалан: Маҳсулот хариди)">
+                <input type="number" id="entry-amount" placeholder="Сумма (сўм)">
+                <button class="btn-gold" id="save-btn" onclick="saveEntry()">Қўшиш</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Сана / Вақт</th><th>Тури</th><th>Изоҳ</th><th>Сумма</th><th>Амаллар</th></tr>
+                    </thead>
+                    <tbody id="records-table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-popup">
+        <div class="popup-content">
+            <div id="popup-icon" class="popup-icon">🤖👮‍♂️</div>
+            <h3 id="popup-title">Диққат</h3>
+            <p id="popup-text">Хабар матни</p>
+            <div id="popup-btns" class="popup-buttons">
+                <button class="popup-btn" onclick="closePopup()">Тўғри</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.admin-slide');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000);
+
+        // Админ 1 учун рақам: +998907971146
+        const OWNER_VALID_PHONE = "+998907971146";
+
+        let records = JSON.parse(localStorage.getItem('kafe_hisob_kitob')) || [];
+        let editIndex = -1;
+
+        function showMessage(icon, title, text, callback = null) {
+            document.getElementById('popup-icon').textContent = icon;
+            document.getElementById('popup-title').textContent = title;
+            document.getElementById('popup-text').textContent = text;
+            const btns = document.getElementById('popup-btns');
+            
+            if (callback) {
+                btns.innerHTML = `<button class="popup-btn popup-btn-cancel" onclick="closePopup()">Йўқ</button><button class="popup-btn" id="confirm-ok-btn">Ҳа</button>`;
+                document.getElementById('confirm-ok-btn').onclick = function() { closePopup(); callback(); };
+            } else {
+                btns.innerHTML = `<button class="popup-btn" onclick="closePopup()">Тўғри</button>`;
+            }
+            document.getElementById('custom-popup').style.display = 'flex';
+        }
+
+        function closePopup() { document.getElementById('custom-popup').style.display = 'none'; }
+
+        function loginOwner() {
+            let phone = document.getElementById('owner-phone').value.trim().replace(/\s+/g, '');
+            if (phone !== OWNER_VALID_PHONE) {
+                showMessage("👮‍♂️🤖", "Сизга мумкинмас!", "Бу кабинетга фақат кафе эгаси кира олади. Сизнинг рақамингиз рўйхатда йўқ!");
+                return;
+            }
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard-screen').style.display = 'block';
+            document.getElementById('logged-phone').textContent = 'Фаол рақам: ' + phone;
+            renderRecords();
+        }
+
+        function logoutOwner() {
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'block';
+        }
+
+        function saveEntry() {
+            const type = document.getElementById('entry-type').value;
+            const desc = document.getElementById('entry-desc').value.trim();
+            const amount = parseFloat(document.getElementById('entry-amount').value);
+
+            if (!desc || isNaN(amount) || amount <= 0) {
+                showMessage("⚠️", "Хатолик", "Барча майдонларни тўғри тўлдиринг!");
+                return;
+            }
+
+            const now = new Date().toLocaleString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            if (editIndex === -1) {
+                records.unshift({ date: now, type, desc, amount });
+            } else {
+                records[editIndex] = { ...records[editIndex], type, desc, amount };
+                editIndex = -1;
+                document.getElementById('save-btn').textContent = 'Қўшиш';
+            }
+
+            localStorage.setItem('kafe_hisob_kitob', JSON.stringify(records));
+            document.getElementById('entry-desc').value = '';
+            document.getElementById('entry-amount').value = '';
+            renderRecords();
+        }
+
+        function editEntry(index) {
+            const item = records[index];
+            document.getElementById('entry-type').value = item.type;
+            document.getElementById('entry-desc').value = item.desc;
+            document.getElementById('entry-amount').value = item.amount;
+            editIndex = index;
+            document.getElementById('save-btn').textContent = 'Янгилаш';
+        }
+
+        function deleteEntry(index) {
+            showMessage("🗑", "Тасдиқлаш", "Ушбу ёзувни ўчирмоқчимисиз?", function() {
+                records.splice(index, 1);
+                localStorage.setItem('kafe_hisob_kitob', JSON.stringify(records));
+                renderRecords();
+            });
+        }
+
+        function renderRecords() {
+            const tbody = document.getElementById('records-table');
+            tbody.innerHTML = '';
+            let income = 0, expense = 0;
+
+            records.forEach((item, index) => {
+                if (item.type === 'income') income += item.amount;
+                else expense += item.amount;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.date}</td>
+                        <td class="${item.type === 'income' ? 'type-in' : 'type-out'}">${item.type === 'income' ? 'Кирим (+)' : 'Чиқим (-)'}</td>
+                        <td>${item.desc}</td>
+                        <td>${item.amount.toLocaleString()} сўм</td>
+                        <td>
+                            <button class="action-btn" onclick="editEntry(${index})">Таҳрир</button>
+                            <button class="action-btn" onclick="deleteEntry(${index})">Ўчириш</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('total-income').textContent = income.toLocaleString() + ' сўм';
+            document.getElementById('total-expense').textContent = expense.toLocaleString() + ' сўм';
+            document.getElementById('net-profit').textContent = (income - expense).toLocaleString() + ' сўм';
+        }
+    </script>
+</body>
+</html>

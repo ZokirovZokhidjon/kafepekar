@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAFE pekar — Онлайн Меню</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-dim: rgba(197, 160, 89, 0.35);
+            --dark-bg: #120d0a;
+            --card-bg: rgba(24, 18, 14, 0.9);
+            --text-light: #f4efe6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        
+        /* Орқа фон слайдери учун контейнер */
+        .hero { position: relative; min-height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 25px 40px; overflow: hidden; }
+        
+        .hero-bg-slider {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        /* Расм устидаги қоронғилаштирувчи ва бронза тус берувчи қават */
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(15, 10, 7, 0.65), rgba(15, 10, 7, 0.8));
+            z-index: 2;
+        }
+
+        .hero-frame { position: absolute; top: 75px; left: 40px; right: 40px; bottom: 35px; border: 4px solid var(--gold-dim); pointer-events: none; z-index: 4; }
+        header { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; flex-wrap: wrap; gap: 15px; }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; flex-wrap: wrap; }
+        nav ul li a { color: var(--text-light); text-decoration: none; padding-bottom: 4px; transition: 0.3s; }
+        nav ul li a:hover { color: var(--gold); }
+        .admin-links { display: flex; gap: 8px; }
+        .admin-link { color: #aaa; text-decoration: none; font-size: 11px; border: 1px solid rgba(255,255,255,0.2); padding: 5px 8px; border-radius: 3px; }
+        .admin-link:hover { border-color: var(--gold); color: var(--gold); }
+        
+        .hero-center { position: relative; z-index: 5; text-align: center; margin: auto 0; }
+        .hero-subtitle-top { font-size: 12px; letter-spacing: 4px; color: var(--gold); margin-bottom: 10px; text-transform: uppercase; }
+        .hero-title { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 800; text-transform: uppercase; color: var(--gold); text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+        
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold); }
+        .section-header p { color: #aaa; margin-top: 8px; font-size: 14px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .product-div { background: var(--card-bg); border: 1px solid var(--gold-dim); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-img { width: 100%; height: 170px; object-fit: cover; margin-bottom: 18px; border: 1px solid rgba(197, 160, 89, 0.2); }
+        .product-title { font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 8px; }
+        .product-desc { font-size: 13px; color: #bbb; margin-bottom: 18px; line-height: 1.5; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .price-tag { font-size: 1.15rem; font-weight: 600; color: var(--gold); }
+        .order-btn { background: transparent; border: 1px solid var(--gold); color: var(--text-light); padding: 8px 16px; cursor: pointer; text-transform: uppercase; font-size: 12px; transition: 0.3s; }
+        .order-btn:hover { background: var(--gold); color: #120d0a; font-weight: 600; }
+        .cart-box { max-width: 700px; margin: 40px auto 0; background: #1a130e; border: 2px solid var(--gold); padding: 30px; }
+        .cart-box h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid var(--gold-dim); padding-bottom: 10px; }
+        .cart-list { list-style: none; margin-bottom: 20px; }
+        .cart-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 14px; }
+        .cart-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .cart-inputs input { background: #120d0a; border: 1px solid var(--gold-dim); color: #fff; padding: 12px; font-family: inherit; }
+        .submit-order { width: 100%; background: var(--gold); color: #120d0a; border: none; padding: 14px; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .gallery-item { width: 100%; height: 220px; object-fit: cover; border: 1px solid var(--gold-dim); transition: transform 0.3s; }
+        .gallery-item:hover { transform: scale(1.02); border-color: var(--gold); }
+
+        .location-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .location-card { background: var(--card-bg); border: 1px solid var(--gold-dim); padding: 30px; text-align: center; }
+        .location-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 12px; font-size: 1.2rem; }
+        .location-card p { font-size: 14px; color: #bbb; line-height: 1.6; }
+
+        /* Профессионал модал ойна */
+        #custom-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75); display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .popup-content {
+            background: var(--card-bg); border: 2px solid var(--gold); padding: 30px; max-width: 400px; width: 90%; text-align: center;
+        }
+        .popup-content h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; }
+        .popup-content p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
+        .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 10px 25px; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+
+        @media (max-width: 768px) {
+            .cart-inputs { grid-template-columns: 1fr; }
+            .hero { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <!-- 5 та орқа фон расмлари алмашиб турадиган слайдер -->
+        <div class="hero-bg-slider">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1920&q=80');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-frame"></div>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#">Бош саҳифа</a></li>
+                    <li><a href="#menu">Меню</a></li>
+                    <li><a href="#gallery">Галерея</a></li>
+                    <li><a href="#location">Манзил</a></li>
+                </ul>
+            </nav>
+            <div class="admin-links">
+                <a href="admin1.html" class="admin-link">Эгаси (Админ 1)</a>
+                <a href="admin2.html" class="admin-link">Ходим (Админ 2)</a>
+            </div>
+        </header>
+        <div class="hero-center">
+            <div class="hero-subtitle-top">Мазали таомлар ва иссиқ қаҳва</div>
+            <h1 class="hero-title">KAFE PEKAR</h1>
+        </div>
+        <div></div> <!-- Бўш жой мослашув учун -->
+    </section>
+
+    <!-- МЕНЮ БЎЛИМИ -->
+    <section id="menu" class="section-container">
+        <div class="section-header">
+            <h2>Бизнинг Меню</h2>
+            <p>Ходим томонидан янгилаб бориладиган маҳсулотлар</p>
+        </div>
+
+        <div id="products-grid" class="products-grid"></div>
+
+        <div id="order" class="cart-box">
+            <h3>Сизнинг Буюртмангиз</h3>
+            <ul id="cart-items" class="cart-list"><li style="color:#888;">Ҳозирча ҳеч нарса танланмади...</li></ul>
+            <p style="margin-bottom: 15px; font-weight: 600;">Жами: <span id="total-price" style="color:var(--gold);">0</span> сўм</p>
+            <div class="cart-inputs">
+                <input type="text" id="cust-name" placeholder="Исмингиз">
+                <input type="tel" id="cust-phone" placeholder="Телефон рақамингиз">
+            </div>
+            <button id="submit-btn" class="submit-order" onclick="submitOrder()">Буюртмани юбориш</button>
+        </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ БЎЛИМИ -->
+    <section id="gallery" class="section-container" style="padding-top: 0;">
+        <div class="section-header">
+            <h2>Галерея</h2>
+            <p>Кафемизнинг шинам муҳити ва мазали маҳсулотлари</p>
+        </div>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Кафе интерьери" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Пишириқлар" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" alt="Қаҳва" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" alt="Сендвич" class="gallery-item">
+        </div>
+    </section>
+
+    <!-- МАНЗИЛ БЎЛИМИ -->
+    <section id="location" class="section-container" style="padding-top: 0;">
+        <div class="section-header">
+            <h2>Манзил ва Иш Вақти</h2>
+            <p>Бизни осон топинг ва ташриф буюринг</p>
+        </div>
+        <div class="location-grid">
+            <div class="location-card">
+                <h3>📍 Манзилимиз</h3>
+                <p>Наманган шаҳри, «Орзу сити» турар жой мажмуаси.<br>Сизни кутиб қоламиз!</p>
+            </div>
+            <div class="location-card">
+                <h3>🕒 Иш Вақти</h3>
+                <p>Душанба — Якшанба<br><b>08:00 — 23:00</b><br>(Дам олиш кунларсиз)</p>
+            </div>
+            <div class="location-card">
+                <h3>📞 Алоқа ва Боғланиш</h3>
+                <p>Телефон: +998 (90) 123-45-67<br>Етказиб бериш хизмати мавжуд.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Профессионал хабар ойнаси -->
+    <div id="custom-popup">
+        <div class="popup-content">
+            <h3 id="popup-title">Хабар</h3>
+            <p id="popup-text">Хабар матни</p>
+            <button class="popup-btn" onclick="closePopup()">Тўғри</button>
+        </div>
+    </div>
+
+    <script>
+        // Орқа фон расмларини автоматик алмаштириш скрипти (हर 4 сонияда)
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 4000);
+
+        const BOT_TOKEN = "9167146564:AAEWVf5TmPu_LOK-oASK4Y6BumlB7zu-5cU"; 
+        const MY_CHAT_ID = "1432886456"; 
+        let cart = [];
+
+        function showMessage(title, text) {
+            document.getElementById('popup-title').textContent = title;
+            document.getElementById('popup-text').textContent = text;
+            document.getElementById('custom-popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('custom-popup').style.display = 'none';
+        }
+
+        function loadProducts() {
+            let products = JSON.parse(localStorage.getItem('kafe_products')) || [
+                { name: "Иссиқ Булочка", price: 8000, desc: "Янги ёпилган, долчин ва майизли юмшоқ ширин булочка.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
+                { name: "Миллий Шўрва", price: 28000, desc: "Мол гўшти, сабзавотлар ва кўкатлар билан тайёрланган иссиқ шўрва.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" },
+                { name: "Капучино Кофе", price: 18000, desc: "Янги қовурилган Арабика донларидан тайёрланган қаймоқли қаҳва.", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
+                { name: "Пастрами Сендвич", price: 35000, desc: "Махсус дудланган гўшт, пишлоқ ва соус билан қовурилган нон.", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" }
+            ];
+
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            products.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-div">
+                        <div>
+                            <img src="${p.img}" alt="${p.name}" class="product-img">
+                            <h3 class="product-title">${p.name}</h3>
+                            <p class="product-desc">${p.desc}</p>
+                        </div>
+                        <div class="product-footer">
+                            <span class="price-tag">${p.price.toLocaleString()} сўм</span>
+                            <button class="order-btn" onclick="addToCart('${p.name}', ${p.price})">Танлаш</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            renderCart();
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cart-items');
+            const totalEl = document.getElementById('total-price');
+            list.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                list.innerHTML += `
+                    <li>
+                        <span>${item.name}</span>
+                        <span>${item.price.toLocaleString()} сўм 
+                        <button onclick="removeItem(${index})" style="background:none;border:none;color:#e74c3c;cursor:pointer;margin-left:8px;">✕</button></span>
+                    </li>`;
+            });
+
+            if (cart.length === 0) {
+                list.innerHTML = '<li style="color:#888;">Ҳозирча ҳеч нарса танланмади...</li>';
+            }
+            totalEl.textContent = total.toLocaleString();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        async function submitOrder() {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const btn = document.getElementById('submit-btn');
+
+            if (cart.length === 0) {
+                showMessage("Эслатма", "Илтимос, аввал менюдан таом танланг!");
+                return;
+            }
+            if (!name || !phone) {
+                showMessage("Маълумот етишмайди", "Илтимос, исмингиз ва телефон рақамингизни киритинг!");
+                return;
+            }
+
+            let total = 0;
+            let itemsText = "";
+            cart.forEach((item, i) => {
+                itemsText += `${i + 1}. ${item.name} — ${item.price.toLocaleString()} сўм\n`;
+                total += item.price;
+            });
+
+            let savedRecords = JSON.parse(localStorage.getItem('kafe_hisob_kitob')) || [];
+            const now = new Date().toLocaleString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            savedRecords.unshift({ date: now, type: 'income', desc: `Онлайн савдо (${name}): ${itemsText.replace(/\n/g, ', ')}`, amount: total });
+            localStorage.setItem('kafe_hisob_kitob', JSON.stringify(savedRecords));
+
+            const message = `🍽 ЯНГИ ОНЛАЙН БУЮРТМА\n\n👤 Хўранда: ${name}\n📞 Телефон: ${phone}\n\n📋 Маҳсулотлар:\n${itemsText}\n💰 Жами: ${total.toLocaleString()} сўм`;
+
+            btn.disabled = true;
+            btn.textContent = "Юборилмоқда...";
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: MY_CHAT_ID, text: message })
+                });
+                showMessage("Муваффақиятли", `Раҳмат, ${name}! Буюртмангиз қабул қилинди.`);
+                cart = [];
+                renderCart();
+            } catch (err) {
+                showMessage("Хабар", "Буюртма қабул қилинди.");
+                cart = [];
+                renderCart();
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Буюртмани юбориш";
+            }
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
