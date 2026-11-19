@@ -30,16 +30,13 @@
         input, textarea { width: 100%; background: var(--dark-bg); border: 1px solid rgba(197,160,89,0.4); color: #fff; padding: 12px; font-family: inherit; outline: none; }
         input:focus, textarea:focus { border-color: var(--gold); }
 
-        /* Расм танлаш усули учун тугмалар (Tab) */
         .img-source-tabs { display: flex; gap: 10px; }
         .tab-btn { flex: 1; padding: 10px; background: var(--dark-bg); border: 1px solid var(--gold-dim); color: #aaa; cursor: pointer; font-family: inherit; font-size: 13px; transition: 0.3s; }
         .tab-btn.active { background: rgba(197, 160, 89, 0.2); border-color: var(--gold); color: var(--gold); font-weight: 600; }
 
-        /* Файл юклаш майдони учун махсус стиль */
         .file-upload-label { display: block; background: var(--dark-bg); border: 1px dashed var(--gold); color: #ccc; padding: 14px; text-align: center; cursor: pointer; font-size: 13px; transition: 0.3s; }
         .file-upload-label:hover { background: rgba(197, 160, 89, 0.08); color: var(--gold); }
 
-        /* Танланган расмни олдиндан кўриш (Preview) */
         .preview-box { display: none; align-items: center; gap: 15px; background: rgba(0,0,0,0.4); padding: 10px; border: 1px solid var(--gold-dim); }
         .preview-box img { width: 70px; height: 70px; object-fit: cover; border: 1px solid var(--gold); }
         .preview-box span { font-size: 12px; color: #aaa; }
@@ -74,7 +71,6 @@
     <div class="admin-overlay"></div>
 
     <div class="wrapper-padding">
-        <!-- Кириш ойнаси -->
         <div id="login-screen" class="login-wrapper">
             <h2>Ходим Кабинети</h2>
             <p>Фақат масъул ходимнинг телефон рақами орқали кирилади</p>
@@ -83,7 +79,6 @@
             <a href="index.html" class="back-link">← Сайтга қайтиш</a>
         </div>
 
-        <!-- Меню қўшиш панели -->
         <div id="dashboard-screen" class="container">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                 <h2 style="margin-bottom: 0;">Админ 2: Менюни Бошқариш</h2>
@@ -96,13 +91,11 @@
                 <input type="number" id="p-price" placeholder="Нархи (сўмда, масалан: 25000)">
                 <textarea id="p-desc" rows="2" placeholder="Қисқача тавсифи"></textarea>
                 
-                <!-- Расм турини танлаш тугмалари -->
                 <div class="img-source-tabs">
                     <button type="button" class="tab-btn active" id="tab-file" onclick="switchImgMode('file')">📁 Компьютердан юклаш</button>
                     <button type="button" class="tab-btn" id="tab-url" onclick="switchImgMode('url')">🔗 Интернетдан ҳавола (URL)</button>
                 </div>
 
-                <!-- 1. Компьютердан юклаш қисми -->
                 <div id="file-input-box">
                     <label for="p-file" class="file-upload-label" id="file-label">
                         📁 Таом расмини юклаш (Файл танлаш)
@@ -110,12 +103,10 @@
                     <input type="file" id="p-file" accept="image/*" style="display: none;" onchange="previewFile()">
                 </div>
 
-                <!-- 2. Интернетдан ҳавола қўйиш қисми -->
                 <div id="url-input-box" style="display: none;">
                     <input type="url" id="p-url" placeholder="Расм ҳаволасини (ссылка) шу ерга қўйинг: https://..." oninput="previewUrl()">
                 </div>
 
-                <!-- Танланган расмни кўриб туриш ойнаси -->
                 <div class="preview-box" id="img-preview-box">
                     <img id="img-preview" src="" alt="Кўриниш">
                     <span id="img-preview-text">Расм тайёр!</span>
@@ -133,7 +124,6 @@
         </div>
     </div>
 
-    <!-- Тақиқ модали -->
     <div id="custom-popup">
         <div class="popup-content">
             <div id="popup-icon" class="popup-icon">🤖👮‍♂️</div>
@@ -155,7 +145,7 @@
         }, 4000);
 
         const STAFF_VALID_PHONE = "+998501191146";
-        const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.firebaseio.com";
+        const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.europe-west1.firebasedatabase.app";
 
         let uploadedImageBase64 = "";
         let currentImgMode = "file";
