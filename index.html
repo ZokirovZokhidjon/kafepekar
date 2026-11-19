@@ -163,7 +163,7 @@
             <div class="hero-subtitle-top">Мазали таомлар ва иссиқ қаҳва</div>
             <h1 class="hero-title">KAFE PEKAR</h1>
         </div>
-        <div></div> <!-- Бўш жой мослашув учун -->
+        <div></div>
     </section>
 
     <!-- МЕНЮ БЎЛИМИ -->
@@ -247,9 +247,11 @@
         }
         setInterval(nextSlide, 4000);
 
-        const BOT_TOKEN = "9167146564:AAEWVf5TmPu_LOK-oASK4Y6BumlB7zu-5cU"; 
-        const MY_CHAT_ID = "1432886456"; 
-        const GROUP_CHAT_ID = "-1004435519072"; 
+        const BOT_TOKEN = "9167146564:AAEWVf5TmPu_LOK-oASK4Y6BumlB7zu-5cU";
+        const MY_CHAT_ID = "1432886456";
+        const GROUP_CHAT_ID = "-1004435519072";
+        const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.firebaseio.com";
+
         let cart = [];
 
         function showMessage(title, text) {
@@ -262,18 +264,12 @@
             document.getElementById('custom-popup').style.display = 'none';
         }
 
-        function loadProducts() {
-            let products = JSON.parse(localStorage.getItem('kafe_products')) || [
-                { name: "Гўштли Пирожки", price: 8000, desc: "Янги ёпилган, мазали мол гўштли ва пиёзли иссиқ пирожки.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
-                { name: "Миллий Шўрва", price: 28000, desc: "Мол гўшти, сабзавотлар ва кўкатлар билан тайёрланган иссиқ шўрва.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" },
-                { name: "Капучино Кофе", price: 18000, desc: "Янги қовурилган Арабика донларидан тайёрланган қаймоқли қаҳва.", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
-                { name: "Пастрами Сендвич", price: 35000, desc: "Махсус дудланган гўшт, пишлоқ ва соус билан қовурилган нон.", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" }
-            ];
-
+        function renderProductsList(products) {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
 
             products.forEach((p, idx) => {
+                if (!p) return;
                 const safeName = encodeURIComponent(p.name);
                 grid.innerHTML += `
                     <div class="product-div">
@@ -296,6 +292,32 @@
                     </div>
                 `;
             });
+        }
+
+        async function loadProducts() {
+            const defaultProducts = [
+                { name: "Гўштли Пирожки", price: 8000, desc: "Янги ёпилган, мазали мол гўштли ва пиёзли иссиқ пирожки.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
+                { name: "Миллий Шўрва", price: 28000, desc: "Мол гўшти, сабзавотлар ва кўкатлар билан тайёрланган иссиқ шўрва.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" },
+                { name: "Капучино Кофе", price: 18000, desc: "Янги қовурилган Арабика донларидан тайёрланган қаймоқли қаҳва.", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
+                { name: "Пастрами Сендвич", price: 35000, desc: "Махсус дудланган гўшт, пишлоқ ва соус билан қовурилган нон.", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" }
+            ];
+
+            let products = JSON.parse(localStorage.getItem('kafe_products')) || defaultProducts;
+            renderProductsList(products);
+
+            try {
+                const res = await fetch(`${FIREBASE_DB_URL}/kafe_products.json`);
+                const data = await res.json();
+                if (data) {
+                    const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data).filter(Boolean);
+                    if (list.length > 0) {
+                        localStorage.setItem('kafe_products', JSON.stringify(list));
+                        renderProductsList(list);
+                    }
+                }
+            } catch (e) {
+                console.warn("Firebase базадан ўқишда муаммо:", e);
+            }
         }
 
         function changeCardQty(idx, delta) {
@@ -327,7 +349,7 @@
                 cart.push({ name, price, qty });
             }
 
-            qtyInput.value = 1; // Кейинги танлов учун 1 га қайтарамиз
+            qtyInput.value = 1;
             renderCart();
         }
 
