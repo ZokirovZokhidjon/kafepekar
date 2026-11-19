@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
@@ -111,6 +111,20 @@
         .popup-content p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
         .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 10px 25px; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 12px; }
 
+        .reklama {
+            margin: 22px auto 14px;
+            display: flex;
+            justify-content: center;
+        }
+        .reklama img {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid var(--gold-dim);
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .cart-inputs { grid-template-columns: 1fr; }
             .hero { padding: 20px; }
@@ -118,6 +132,7 @@
     </style>
 </head>
 <body>
+
     <section class="hero">
         <!-- 5 та орқа фон расмлари алмашиб турадиган слайдер -->
         <div class="hero-bg-slider">
@@ -155,6 +170,9 @@
     <section id="menu" class="section-container">
         <div class="section-header">
             <h2>Бизнинг Меню</h2>
+            <div class="reklama">
+                <img src="rek.jpg" alt="КафеПекар реклама баннери">
+            </div>
             <p>Керакли миқдорни белгиланг ва буюртма беринг</p>
         </div>
 
@@ -203,7 +221,7 @@
             </div>
             <div class="location-card">
                 <h3>📞 Алоқа ва Боғланиш</h3>
-                <p>Телефон: +998 +998(91)0645099<br>Етказиб бериш хизмати мавжуд.</p>
+                <p>Телефон: +998 (91) 064-50-99<br>Етказиб бериш хизмати мавжуд.</p>
             </div>
         </div>
     </section>
@@ -231,6 +249,7 @@
 
         const BOT_TOKEN = "9167146564:AAEWVf5TmPu_LOK-oASK4Y6BumlB7zu-5cU"; 
         const MY_CHAT_ID = "1432886456"; 
+        const GROUP_CHAT_ID = "-1004435519072"; 
         let cart = [];
 
         function showMessage(title, text) {
@@ -404,12 +423,18 @@
             btn.disabled = true;
             btn.textContent = "Юборилмоқда...";
 
+            const targets = [MY_CHAT_ID, GROUP_CHAT_ID].filter(Boolean);
+
             try {
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: MY_CHAT_ID, text: message })
-                });
+                await Promise.all(
+                    targets.map(chatId =>
+                        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ chat_id: chatId, text: message })
+                        })
+                    )
+                );
                 showMessage("Муваффақиятли", `Раҳмат, ${name}! Буюртмангиз қабул қилинди.`);
                 cart = [];
                 renderCart();
