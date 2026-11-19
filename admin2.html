@@ -89,7 +89,7 @@
                 <h2 style="margin-bottom: 0;">Админ 2: Менюни Бошқариш</h2>
                 <button class="btn-gold" style="width: auto; padding: 8px 14px; font-size: 12px;" onclick="logoutStaff()">Чиқиш</button>
             </div>
-            <p style="font-size:13px; color:#aaa; margin-bottom:20px;">Бу ерда киритилган маҳсулотлар ва расмлар автоматик равишда хўрандалар учун асосий сайтга чиқади.</p>
+            <p style="font-size:13px; color:#aaa; margin-bottom:20px;">Бу ерда киритилган маҳсулотлар ва расмлар автоматик равишда базага сақланади ва телефонда ҳам кўринади.</p>
             
             <div class="form-group">
                 <input type="text" id="p-name" placeholder="Маҳсулот номи (масалан: Махсус Торт)">
@@ -121,7 +121,7 @@
                     <span id="img-preview-text">Расм тайёр!</span>
                 </div>
                 
-                <button class="btn-gold" onclick="addProduct()">Маҳсулотни Сайтга Қўшиш</button>
+                <button class="btn-gold" id="add-prod-btn" onclick="addProduct()">Маҳсулотни Сайтга Қўшиш</button>
             </div>
 
             <div class="item-list">
@@ -155,17 +155,51 @@
         }, 4000);
 
         const STAFF_VALID_PHONE = "+998501191146";
-        let uploadedImageBase64 = "";
-        let currentImgMode = "file"; // 'file' ёки 'url'
+        const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.firebaseio.com";
 
-        let products = JSON.parse(localStorage.getItem('kafe_products')) || [
+        let uploadedImageBase64 = "";
+        let currentImgMode = "file";
+
+        const defaultProducts = [
             { name: "Иссиқ Булочка", price: 8000, desc: "Янги ёпилган, долчин ва майизли юмшоқ ширин булочка.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
             { name: "Миллий Шўрва", price: 28000, desc: "Мол гўшти, сабзавотлар ва кўкатлар билан тайёрланган иссиқ шўрва.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80" },
             { name: "Капучино Кофе", price: 18000, desc: "Янги қовурилган Арабика донларидан тайёрланган қаймоқли қаҳва.", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" },
             { name: "Пастрами Сендвич", price: 35000, desc: "Махсус дудланган гўшт, пишлоқ ва соус билан қовурилган нон.", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" }
         ];
 
-        // Компьютердан юклаш ва URL режими ўртасида алмашиш
+        let products = JSON.parse(localStorage.getItem('kafe_products')) || [...defaultProducts];
+
+        async function loadFromFirebase() {
+            try {
+                const res = await fetch(`${FIREBASE_DB_URL}/kafe_products.json`);
+                const data = await res.json();
+                if (data) {
+                    const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data).filter(Boolean);
+                    if (list.length > 0) {
+                        products = list;
+                        localStorage.setItem('kafe_products', JSON.stringify(products));
+                    }
+                }
+            } catch (e) {
+                console.warn("Firebase дан маҳсулотларни олишда хатолик:", e);
+            }
+            renderAdminListOnly();
+        }
+
+        async function saveToFirebase() {
+            try {
+                const res = await fetch(`${FIREBASE_DB_URL}/kafe_products.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(products)
+                });
+                return res.ok;
+            } catch (e) {
+                console.warn("Firebase га сақлашда хатолик:", e);
+                return false;
+            }
+        }
+
         function switchImgMode(mode) {
             currentImgMode = mode;
             document.getElementById('tab-file').classList.toggle('active', mode === 'file');
@@ -174,7 +208,6 @@
             document.getElementById('file-input-box').style.display = mode === 'file' ? 'block' : 'none';
             document.getElementById('url-input-box').style.display = mode === 'url' ? 'block' : 'none';
             
-            // Режим ўзгарганда превьюни янгилаш
             if (mode === 'file' && uploadedImageBase64) {
                 showPreview(uploadedImageBase64, "Компьютердан танланган расм");
             } else if (mode === 'url' && document.getElementById('p-url').value.trim()) {
@@ -184,7 +217,6 @@
             }
         }
 
-        // Расмни превью ойнасида кўрсатиш
         function showPreview(src, text) {
             const box = document.getElementById('img-preview-box');
             const img = document.getElementById('img-preview');
@@ -194,7 +226,6 @@
             box.style.display = 'flex';
         }
 
-        // Компьютердан расм юклаш ва ҳажмини оптималлаштириш
         function previewFile() {
             const fileInput = document.getElementById('p-file');
             const fileLabel = document.getElementById('file-label');
@@ -203,11 +234,10 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Расмни сиқиш (localStorage тўлиб қолмаслиги учун)
                     const tempImg = new Image();
                     tempImg.onload = function() {
                         const canvas = document.createElement('canvas');
-                        const maxWidth = 800;
+                        const maxWidth = 700;
                         let width = tempImg.width;
                         let height = tempImg.height;
 
@@ -221,7 +251,7 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(tempImg, 0, 0, width, height);
 
-                        uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                        uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.75);
                         fileLabel.textContent = "✅ Расм танланди: " + file.name;
                         showPreview(uploadedImageBase64, "Танланган файл: " + file.name);
                     };
@@ -231,7 +261,6 @@
             }
         }
 
-        // Интернетдан ҳавола киритилганда превью кўрсатиш
         function previewUrl() {
             const url = document.getElementById('p-url').value.trim();
             if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -258,7 +287,7 @@
 
         function closePopup() { document.getElementById('custom-popup').style.display = 'none'; }
 
-        function loginStaff() {
+        async function loginStaff() {
             let phone = document.getElementById('staff-phone').value.trim().replace(/\s+/g, '');
             if (phone !== STAFF_VALID_PHONE) {
                 showMessage("👮‍♂️🤖", "Сизга мумкинмас!", "Бу кабинетга фақат масъул ходим кира олади. Сизнинг рақамингиз рўйхатда йўқ!");
@@ -266,7 +295,7 @@
             }
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('dashboard-screen').style.display = 'block';
-            renderAdminProducts();
+            await loadFromFirebase();
         }
 
         function logoutStaff() {
@@ -274,16 +303,17 @@
             document.getElementById('login-screen').style.display = 'block';
         }
 
-        function renderAdminProducts() {
+        function renderAdminListOnly() {
             const list = document.getElementById('admin-products');
             list.innerHTML = '';
             products.forEach((p, index) => {
+                if (!p) return;
                 list.innerHTML += `
                     <div class="item-row">
                         <div style="display:flex; align-items:center; gap:12px;">
                             <img src="${p.img}" class="item-thumb" alt="расм" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80'">
                             <div>
-                                <strong>${p.name}</strong> — <span style="color:var(--gold);">${p.price.toLocaleString()} сўм</span>
+                                <strong>${p.name}</strong> — <span style="color:var(--gold);">${Number(p.price).toLocaleString()} сўм</span>
                                 <div style="font-size:12px; color:#999; margin-top:3px;">${p.desc}</div>
                             </div>
                         </div>
@@ -293,16 +323,15 @@
             });
             try {
                 localStorage.setItem('kafe_products', JSON.stringify(products));
-            } catch (e) {
-                showMessage("⚠️", "Хотира тўлди", "Браузер хотираси тўлиб қолди. Илтимос, расмларни интернет ҳаволаси (URL) орқали қўшинг ёки эски маҳсулотларни ўчиринг.");
-            }
+            } catch (e) {}
         }
 
-        function addProduct() {
+        async function addProduct() {
             const name = document.getElementById('p-name').value.trim();
             const price = parseFloat(document.getElementById('p-price').value);
             const desc = document.getElementById('p-desc').value.trim() || "Мазали кафе маҳсулоти.";
             const urlInput = document.getElementById('p-url').value.trim();
+            const btn = document.getElementById('add-prod-btn');
             
             let finalImg = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80";
 
@@ -317,10 +346,16 @@
                 return;
             }
 
-            products.push({ name, price, desc, img: finalImg });
-            renderAdminProducts();
+            btn.disabled = true;
+            btn.textContent = "Базага сақланмоқда...";
 
-            // Формани тозалаш
+            products.push({ name, price, desc, img: finalImg });
+            renderAdminListOnly();
+            const saved = await saveToFirebase();
+
+            btn.disabled = false;
+            btn.textContent = "Маҳсулотни Сайтга Қўшиш";
+
             document.getElementById('p-name').value = '';
             document.getElementById('p-price').value = '';
             document.getElementById('p-desc').value = '';
@@ -330,13 +365,18 @@
             document.getElementById('img-preview-box').style.display = 'none';
             uploadedImageBase64 = "";
 
-            showMessage("✅", "Муваффақиятли", "Маҳсулот расми билан бирга сайтга қўшилди!");
+            if (saved) {
+                showMessage("✅", "Муваффақиятли", "Маҳсулот базага сақланди ва сайтда (телефонда ҳам) кўринади!");
+            } else {
+                showMessage("⚠️", "Қисман сақланди", "Маҳсулот браузерда қўшилди, лекин интернет ёки Firebase рухсатларини текширинг.");
+            }
         }
 
         function deleteProduct(index) {
-            showMessage("🗑", "Тасдиқлаш", "Ушбу маҳсулотни сайтдан ўчирмоқчимисиз?", function() {
+            showMessage("🗑", "Тасдиқлаш", "Ушбу маҳсулотни сайтдан ўчирмоқчимисиз?", async function() {
                 products.splice(index, 1);
-                renderAdminProducts();
+                renderAdminListOnly();
+                await saveToFirebase();
             });
         }
     </script>

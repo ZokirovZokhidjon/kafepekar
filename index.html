@@ -17,7 +17,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
         
-        /* Орқа фон слайдери учун контейнер */
         .hero { position: relative; min-height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 25px 40px; overflow: hidden; }
         
         .hero-bg-slider {
@@ -36,7 +35,6 @@
         .hero-slide.active {
             opacity: 1;
         }
-        /* Расм устидаги қоронғилаштирувчи ва бронза тус берувчи қават */
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -70,7 +68,6 @@
         .product-footer-top { display: flex; justify-content: space-between; align-items: center; }
         .price-tag { font-size: 1.15rem; font-weight: 600; color: var(--gold); }
 
-        /* Сон танлаш контроллари (- / сон / +) */
         .qty-control { display: inline-flex; align-items: center; border: 1px solid var(--gold-dim); background: #120d0a; border-radius: 3px; overflow: hidden; }
         .qty-btn { background: transparent; border: none; color: var(--gold); width: 28px; height: 28px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .qty-btn:hover { background: rgba(197, 160, 89, 0.2); }
@@ -99,7 +96,6 @@
         .location-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 12px; font-size: 1.2rem; }
         .location-card p { font-size: 14px; color: #bbb; line-height: 1.6; }
 
-        /* Профессионал модал ойна */
         #custom-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.75); display: none; justify-content: center; align-items: center; z-index: 1000;
@@ -134,7 +130,6 @@
 <body>
 
     <section class="hero">
-        <!-- 5 та орқа фон расмлари алмашиб турадиган слайдер -->
         <div class="hero-bg-slider">
             <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80');"></div>
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80');"></div>
@@ -166,7 +161,6 @@
         <div></div>
     </section>
 
-    <!-- МЕНЮ БЎЛИМИ -->
     <section id="menu" class="section-container">
         <div class="section-header">
             <h2>Бизнинг Меню</h2>
@@ -190,7 +184,6 @@
         </div>
     </section>
 
-    <!-- ГАЛЕРЕЯ БЎЛИМИ -->
     <section id="gallery" class="section-container" style="padding-top: 0;">
         <div class="section-header">
             <h2>Галерея</h2>
@@ -204,7 +197,6 @@
         </div>
     </section>
 
-    <!-- МАНЗИЛ БЎЛИМИ -->
     <section id="location" class="section-container" style="padding-top: 0;">
         <div class="section-header">
             <h2>Манзил ва Иш Вақти</h2>
@@ -226,7 +218,6 @@
         </div>
     </section>
 
-    <!-- Профессионал хабар ойнаси -->
     <div id="custom-popup">
         <div class="popup-content">
             <h3 id="popup-title">Хабар</h3>
@@ -236,7 +227,6 @@
     </div>
 
     <script>
-        // Орқа фон расмларини автоматик алмаштириш скрипти (ҳар 4 сонияда)
         const slides = document.querySelectorAll('.hero-slide');
         let currentSlide = 0;
 
@@ -250,7 +240,7 @@
         const BOT_TOKEN = "9167146564:AAEWVf5TmPu_LOK-oASK4Y6BumlB7zu-5cU";
         const MY_CHAT_ID = "1432886456";
         const GROUP_CHAT_ID = "-1004435519072";
-        const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.firebaseio.com";
+        const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.europe-west1.firebasedatabase.app";
 
         let cart = [];
 
@@ -302,7 +292,8 @@
                 { name: "Пастрами Сендвич", price: 35000, desc: "Махсус дудланган гўшт, пишлоқ ва соус билан қовурилган нон.", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80" }
             ];
 
-            let products = JSON.parse(localStorage.getItem('kafe_products')) || defaultProducts;
+            let localList = JSON.parse(localStorage.getItem('kafe_products'));
+            let products = (Array.isArray(localList) && localList.length > 0) ? localList : defaultProducts;
             renderProductsList(products);
 
             try {
