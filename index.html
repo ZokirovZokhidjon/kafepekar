@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAFE pekar — Онлайн Меню</title>
     <link rel="shortcut icon" href="pekar.jpg" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #c5a059;
+            --gold-bright: #e5be73;
             --gold-dim: rgba(197, 160, 89, 0.35);
             --dark-bg: #120d0a;
-            --card-bg: rgba(24, 18, 14, 0.9);
+            --card-bg: rgba(24, 18, 14, 0.94);
             --text-light: #f4efe6;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -55,75 +56,132 @@
         .hero-subtitle-top { font-size: 12px; letter-spacing: 4px; color: var(--gold); margin-bottom: 10px; text-transform: uppercase; }
         .hero-title { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 800; text-transform: uppercase; color: var(--gold); text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
         
-        .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
-        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 70px 20px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
         .section-header h2 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold); }
         .section-header p { color: #aaa; margin-top: 8px; font-size: 14px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
-        .product-div { background: var(--card-bg); border: 1px solid var(--gold-dim); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-img { width: 100%; height: 170px; object-fit: cover; margin-bottom: 18px; border: 1px solid rgba(197, 160, 89, 0.2); }
-        .product-title { font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 8px; }
-        .product-desc { font-size: 13px; color: #bbb; margin-bottom: 18px; line-height: 1.5; }
-        .product-footer { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
-        .product-footer-top { display: flex; justify-content: space-between; align-items: center; }
-        .price-tag { font-size: 1.15rem; font-weight: 600; color: var(--gold); }
 
-        .qty-control { display: inline-flex; align-items: center; border: 1px solid var(--gold-dim); background: #120d0a; border-radius: 3px; overflow: hidden; }
-        .qty-btn { background: transparent; border: none; color: var(--gold); width: 28px; height: 28px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .qty-btn:hover { background: rgba(197, 160, 89, 0.2); }
-        .qty-input { width: 42px; height: 28px; background: transparent; border: none; border-left: 1px solid var(--gold-dim); border-right: 1px solid var(--gold-dim); color: #fff; text-align: center; font-family: inherit; font-size: 13px; font-weight: 600; -moz-appearance: textfield; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 22px; }
+        .product-div {
+            background: var(--card-bg);
+            border: 1px solid var(--gold-dim);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 6px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .product-div.in-cart {
+            border-color: var(--gold);
+            box-shadow: 0 0 18px rgba(197, 160, 89, 0.22);
+        }
+        .product-img { width: 100%; height: 165px; object-fit: cover; margin-bottom: 15px; border: 1px solid rgba(197, 160, 89, 0.25); border-radius: 4px; }
+        .product-title { font-family: 'Cinzel', serif; font-size: 1.25rem; margin-bottom: 6px; color: #fff; }
+        .product-desc { font-size: 13px; color: #bbb; margin-bottom: 14px; line-height: 1.45; }
+
+        .product-footer { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 13px; }
+        .product-footer-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .price-tag { font-size: 1.05rem; font-weight: 600; color: #ddd; }
+
+        .live-summary-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(197, 160, 89, 0.12);
+            border: 1px solid var(--gold-dim);
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-size: 13px;
+        }
+        .live-qty-label { color: #e6dfd3; font-weight: 500; }
+        .live-qty-label b { color: var(--gold-bright); font-size: 14px; }
+        .live-sum-label { color: var(--gold-bright); font-weight: 700; font-size: 14px; }
+
+        .qty-control { display: inline-flex; align-items: center; border: 1px solid var(--gold); background: #120d0a; border-radius: 4px; overflow: hidden; }
+        .qty-btn { background: rgba(197, 160, 89, 0.12); border: none; color: var(--gold-bright); width: 34px; height: 34px; font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .qty-btn:hover { background: var(--gold); color: #120d0a; }
+        .qty-input { width: 46px; height: 34px; background: transparent; border: none; border-left: 1px solid var(--gold-dim); border-right: 1px solid var(--gold-dim); color: #fff; text-align: center; font-family: inherit; font-size: 14px; font-weight: 700; -moz-appearance: textfield; }
         .qty-input::-webkit-outer-spin-button,
         .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-        .order-btn { width: 100%; background: transparent; border: 1px solid var(--gold); color: var(--text-light); padding: 9px 16px; cursor: pointer; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; transition: 0.3s; }
-        .order-btn:hover { background: var(--gold); color: #120d0a; font-weight: 600; }
+        .order-btn {
+            width: 100%;
+            background: rgba(197, 160, 89, 0.14);
+            border: 1px solid var(--gold);
+            color: var(--text-light);
+            padding: 11px 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            border-radius: 4px;
+            transition: 0.25s;
+        }
+        .order-btn:hover, .order-btn.added {
+            background: var(--gold);
+            color: #120d0a;
+            font-weight: 700;
+        }
 
-        .cart-box { max-width: 750px; margin: 45px auto 0; background: #1a130e; border: 2px solid var(--gold); padding: 30px; }
+        .cart-box { max-width: 750px; margin: 45px auto 0; background: #1a130e; border: 2px solid var(--gold); border-radius: 6px; padding: 28px; }
         .cart-box h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid var(--gold-dim); padding-bottom: 10px; }
         .cart-list { list-style: none; margin-bottom: 20px; }
-        .cart-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-size: 14px; flex-wrap: wrap; }
-        .cart-item-right { display: flex; align-items: center; gap: 12px; }
+        .cart-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px dashed rgba(255,255,255,0.12); font-size: 14px; flex-wrap: wrap; }
+        .cart-item-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .cart-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .cart-inputs input { background: #120d0a; border: 1px solid var(--gold-dim); color: #fff; padding: 12px; font-family: inherit; }
-        .submit-order { width: 100%; background: var(--gold); color: #120d0a; border: none; padding: 14px; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+        .cart-inputs input { background: #120d0a; border: 1px solid var(--gold-dim); color: #fff; padding: 12px; font-family: inherit; border-radius: 4px; width: 100%; }
+        .submit-order { width: 100%; background: var(--gold); color: #120d0a; border: none; padding: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; border-radius: 4px; font-size: 13px; letter-spacing: 0.8px; }
+        .submit-order:hover { background: var(--gold-bright); }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .gallery-item { width: 100%; height: 220px; object-fit: cover; border: 1px solid var(--gold-dim); transition: transform 0.3s; }
+        .gallery-item { width: 100%; height: 220px; object-fit: cover; border: 1px solid var(--gold-dim); transition: transform 0.3s; border-radius: 4px; }
         .gallery-item:hover { transform: scale(1.02); border-color: var(--gold); }
 
         .location-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .location-card { background: var(--card-bg); border: 1px solid var(--gold-dim); padding: 30px; text-align: center; }
+        .location-card { background: var(--card-bg); border: 1px solid var(--gold-dim); padding: 28px; text-align: center; border-radius: 6px; }
         .location-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 12px; font-size: 1.2rem; }
         .location-card p { font-size: 14px; color: #bbb; line-height: 1.6; }
 
         #custom-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75); display: none; justify-content: center; align-items: center; z-index: 1000;
+            background: rgba(0,0,0,0.78); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px;
         }
         .popup-content {
-            background: var(--card-bg); border: 2px solid var(--gold); padding: 30px; max-width: 400px; width: 90%; text-align: center;
+            background: var(--card-bg); border: 2px solid var(--gold); padding: 28px; max-width: 400px; width: 100%; text-align: center; border-radius: 6px;
         }
         .popup-content h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; }
-        .popup-content p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
-        .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 10px 25px; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+        .popup-content p { font-size: 14px; color: #ddd; margin-bottom: 20px; line-height: 1.5; }
+        .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 11px 26px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 12px; border-radius: 4px; }
 
+        /* Ихчам ва аниқ кўринадиган реклама баннери */
         .reklama {
-            margin: 22px auto 14px;
+            margin: 14px auto 12px;
             display: flex;
             justify-content: center;
         }
         .reklama img {
             width: 100%;
-            max-width: 550px;
+            max-width: 340px;
             height: auto;
-            border-radius: 10px;
-            border: 1px solid var(--gold-dim);
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
             display: block;
         }
 
         @media (max-width: 768px) {
             .cart-inputs { grid-template-columns: 1fr; }
-            .hero { padding: 20px; }
+            .hero { padding: 18px 16px; min-height: 85vh; }
+            .hero-frame { top: 68px; left: 14px; right: 14px; bottom: 20px; }
+            .section-container { padding: 45px 14px; }
+            .products-grid { grid-template-columns: 1fr; gap: 16px; }
+            .product-div { padding: 16px; }
+            .cart-box { padding: 18px 14px; margin-top: 30px; }
+            header { font-size: 11px; gap: 10px; }
+            nav ul { gap: 12px; }
+            .reklama img { max-width: 270px; }
         }
     </style>
 </head>
@@ -167,7 +225,7 @@
             <div class="reklama">
                 <img src="rek.jpg" alt="КафеПекар реклама баннери">
             </div>
-            <p>Керакли миқдорни белгиланг ва буюртма беринг</p>
+            <p>Таомни шу ерда белгиланг, сони ва нархи дарҳол кўринади</p>
         </div>
 
         <div id="products-grid" class="products-grid"></div>
@@ -175,10 +233,10 @@
         <div id="order" class="cart-box">
             <h3>Сизнинг Буюртмангиз</h3>
             <ul id="cart-items" class="cart-list"><li style="color:#888;">Ҳозирча ҳеч нарса танланмади...</li></ul>
-            <p style="margin-bottom: 15px; font-weight: 600;">Жами: <span id="total-price" style="color:var(--gold);">0</span> сўм</p>
+            <p style="margin-bottom: 15px; font-weight: 700; font-size: 16px;">Жами: <span id="total-price" style="color:var(--gold-bright);">0</span> сўм</p>
             <div class="cart-inputs">
-                <input type="text" id="cust-name" placeholder="Исмингиз">
-                <input type="tel" id="cust-phone" placeholder="Телефон рақамингиз">
+                <input type="text" id="cust-name" placeholder="Исмингиз (ихтиёрий)">
+                <input type="tel" id="cust-phone" placeholder="Телефон рақамингиз (ихтиёрий)">
             </div>
             <button id="submit-btn" class="submit-order" onclick="submitOrder()">Буюртмани юбориш</button>
         </div>
@@ -243,6 +301,7 @@
         const FIREBASE_DB_URL = "https://kafepekar-d4499-default-rtdb.europe-west1.firebasedatabase.app";
 
         let cart = [];
+        let currentProducts = [];
 
         function showMessage(title, text) {
             document.getElementById('popup-title').textContent = title;
@@ -254,15 +313,53 @@
             document.getElementById('custom-popup').style.display = 'none';
         }
 
+        function refreshCardLiveViews() {
+            currentProducts.forEach((p, idx) => {
+                if (!p) return;
+                const price = Number(p.price) || 0;
+                const cardEl = document.getElementById(`product-card-${idx}`);
+                const qtyInput = document.getElementById(`card-qty-${idx}`);
+                const liveQtyEl = document.getElementById(`live-qty-${idx}`);
+                const liveSumEl = document.getElementById(`live-sum-${idx}`);
+                const addBtn = document.getElementById(`add-btn-${idx}`);
+
+                if (!qtyInput || !liveQtyEl || !liveSumEl || !addBtn || !cardEl) return;
+
+                const selectedQty = Math.max(1, parseInt(qtyInput.value, 10) || 1);
+                const inCartItem = cart.find(item => item.name === p.name);
+                const cartQty = inCartItem ? inCartItem.qty : 0;
+
+                const displayQty = cartQty > 0 ? cartQty : selectedQty;
+                const displaySum = price * displayQty;
+
+                liveQtyEl.innerHTML = cartQty > 0
+                    ? `Белгиланган: <b>${cartQty} дона</b>`
+                    : `Сони: <b>${selectedQty} дона</b>`;
+                liveSumEl.textContent = `${displaySum.toLocaleString()} сўм`;
+
+                if (cartQty > 0) {
+                    cardEl.classList.add('in-cart');
+                    addBtn.classList.add('added');
+                    addBtn.textContent = `✓ Белгиланди (${cartQty} дона) — Яна қўшиш`;
+                } else {
+                    cardEl.classList.remove('in-cart');
+                    addBtn.classList.remove('added');
+                    addBtn.textContent = `Буюртмага қўшиш (${(price * selectedQty).toLocaleString()} сўм)`;
+                }
+            });
+        }
+
         function renderProductsList(products) {
+            currentProducts = products;
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
 
             products.forEach((p, idx) => {
                 if (!p) return;
+                const price = Number(p.price) || 0;
                 const safeName = encodeURIComponent(p.name);
                 grid.innerHTML += `
-                    <div class="product-div">
+                    <div id="product-card-${idx}" class="product-div">
                         <div>
                             <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80'">
                             <h3 class="product-title">${p.name}</h3>
@@ -270,18 +367,24 @@
                         </div>
                         <div class="product-footer">
                             <div class="product-footer-top">
-                                <span class="price-tag">${Number(p.price).toLocaleString()} сўм</span>
+                                <span class="price-tag">${price.toLocaleString()} сўм / дона</span>
                                 <div class="qty-control">
                                     <button type="button" class="qty-btn" onclick="changeCardQty(${idx}, -1)">-</button>
-                                    <input type="number" id="card-qty-${idx}" class="qty-input" value="1" min="1" max="999" onchange="validateCardQty(${idx})">
+                                    <input type="number" id="card-qty-${idx}" class="qty-input" value="1" min="1" max="999" oninput="validateCardQty(${idx})">
                                     <button type="button" class="qty-btn" onclick="changeCardQty(${idx}, 1)">+</button>
                                 </div>
                             </div>
-                            <button type="button" class="order-btn" onclick="addToCartFromCard(${idx}, '${safeName}', ${Number(p.price)})">Буюртмага қўшиш</button>
+                            <div class="live-summary-bar">
+                                <span id="live-qty-${idx}" class="live-qty-label">Сони: <b>1 дона</b></span>
+                                <span id="live-sum-${idx}" class="live-sum-label">${price.toLocaleString()} сўм</span>
+                            </div>
+                            <button type="button" id="add-btn-${idx}" class="order-btn" onclick="addToCartFromCard(${idx}, '${safeName}', ${price})">Буюртмага қўшиш</button>
                         </div>
                     </div>
                 `;
             });
+
+            refreshCardLiveViews();
         }
 
         async function loadProducts() {
@@ -318,6 +421,17 @@
             if (val < 1) val = 1;
             if (val > 999) val = 999;
             input.value = val;
+
+            const prod = currentProducts[idx];
+            if (prod) {
+                const existing = cart.find(item => item.name === prod.name);
+                if (existing) {
+                    existing.qty = val;
+                    renderCart();
+                    return;
+                }
+            }
+            refreshCardLiveViews();
         }
 
         function validateCardQty(idx) {
@@ -326,6 +440,7 @@
             if (isNaN(val) || val < 1) val = 1;
             if (val > 999) val = 999;
             input.value = val;
+            refreshCardLiveViews();
         }
 
         function addToCartFromCard(idx, encodedName, price) {
@@ -379,7 +494,7 @@
                     <li>
                         <div>
                             <strong>${item.name}</strong>
-                            <div style="font-size:12px; color:#aaa;">${item.price.toLocaleString()} сўм / дона</div>
+                            <div style="font-size:12px; color:#aaa;">${item.price.toLocaleString()} сўм × ${item.qty} дона</div>
                         </div>
                         <div class="cart-item-right">
                             <div class="qty-control">
@@ -387,8 +502,8 @@
                                 <input type="number" class="qty-input" value="${item.qty}" min="1" max="999" onchange="setCartQtyDirect(${index}, this.value)">
                                 <button type="button" class="qty-btn" onclick="updateCartQty(${index}, 1)">+</button>
                             </div>
-                            <span style="min-width: 95px; text-align: right; color: var(--gold); font-weight: 600;">${itemSum.toLocaleString()} сўм</span>
-                            <button type="button" onclick="removeItem(${index})" title="Ўчириш" style="background:none;border:none;color:#e74c3c;cursor:pointer;font-size:15px;">✕</button>
+                            <span style="min-width: 105px; text-align: right; color: var(--gold-bright); font-weight: 700;">${itemSum.toLocaleString()} сўм</span>
+                            <button type="button" onclick="removeItem(${index})" title="Ўчириш" style="background:none;border:none;color:#e74c3c;cursor:pointer;font-size:16px;padding:2px 6px;">✕</button>
                         </div>
                     </li>`;
             });
@@ -397,6 +512,7 @@
                 list.innerHTML = '<li style="color:#888;">Ҳозирча ҳеч нарса танланмади...</li>';
             }
             totalEl.textContent = total.toLocaleString();
+            refreshCardLiveViews();
         }
 
         function removeItem(index) {
@@ -405,16 +521,12 @@
         }
 
         async function submitOrder() {
-            const name = document.getElementById('cust-name').value.trim();
-            const phone = document.getElementById('cust-phone').value.trim();
+            const name = document.getElementById('cust-name').value.trim() || "Кўрсатилмаган";
+            const phone = document.getElementById('cust-phone').value.trim() || "Кўрсатилмаган";
             const btn = document.getElementById('submit-btn');
 
             if (cart.length === 0) {
                 showMessage("Эслатма", "Илтимос, аввал менюдан таом ва сонини танланг!");
-                return;
-            }
-            if (!name || !phone) {
-                showMessage("Маълумот етишмайди", "Илтимос, исмингиз ва телефон рақамингизни киритинг!");
                 return;
             }
 
@@ -448,7 +560,7 @@
                         })
                     )
                 );
-                showMessage("Муваффақиятли", `Раҳмат, ${name}! Буюртмангиз қабул қилинди.`);
+                showMessage("Муваффақиятли", `Буюртмангиз (${total.toLocaleString()} сўм) қабул қилинди!`);
                 cart = [];
                 renderCart();
             } catch (err) {

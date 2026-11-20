@@ -21,45 +21,71 @@
         .login-wrapper h2 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; }
         .login-wrapper p { font-size: 13px; color: #aaa; margin-bottom: 25px; }
         .login-wrapper input { width: 100%; padding: 14px; background: var(--dark-bg); border: 1px solid var(--gold-dim); color: #fff; font-size: 16px; text-align: center; margin-bottom: 18px; font-family: inherit; }
-        .btn-gold { width: 100%; padding: 14px; background: var(--gold); color: #120d0a; border: none; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; transition: 0.3s; }
+        .btn-gold { width: 100%; padding: 14px; background: var(--gold); color: #120d0a; border: none; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; transition: 0.3s; border-radius: 3px; }
         .btn-gold:hover { background: #d4b06a; }
+        .btn-secondary { width: 100%; padding: 11px; background: transparent; border: 1px solid #888; color: #ddd; font-weight: 600; text-transform: uppercase; cursor: pointer; font-size: 12px; border-radius: 3px; transition: 0.2s; }
+        .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
         
-        .container { display: none; max-width: 800px; margin: 0 auto; background: var(--panel-bg); border: 2px solid var(--gold); padding: 30px; }
+        .container { display: none; max-width: 820px; margin: 0 auto; background: var(--panel-bg); border: 2px solid var(--gold); padding: 30px; border-radius: 6px; }
         h2 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
-        input, textarea { width: 100%; background: var(--dark-bg); border: 1px solid rgba(197,160,89,0.4); color: #fff; padding: 12px; font-family: inherit; outline: none; }
+        input, textarea { width: 100%; background: var(--dark-bg); border: 1px solid rgba(197,160,89,0.4); color: #fff; padding: 12px; font-family: inherit; outline: none; border-radius: 3px; }
         input:focus, textarea:focus { border-color: var(--gold); }
 
+        .editing-banner {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: rgba(197, 160, 89, 0.16);
+            border: 1px solid var(--gold);
+            color: #f4efe6;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
         .img-source-tabs { display: flex; gap: 10px; }
-        .tab-btn { flex: 1; padding: 10px; background: var(--dark-bg); border: 1px solid var(--gold-dim); color: #aaa; cursor: pointer; font-family: inherit; font-size: 13px; transition: 0.3s; }
+        .tab-btn { flex: 1; padding: 10px; background: var(--dark-bg); border: 1px solid var(--gold-dim); color: #aaa; cursor: pointer; font-family: inherit; font-size: 13px; transition: 0.3s; border-radius: 3px; }
         .tab-btn.active { background: rgba(197, 160, 89, 0.2); border-color: var(--gold); color: var(--gold); font-weight: 600; }
 
-        .file-upload-label { display: block; background: var(--dark-bg); border: 1px dashed var(--gold); color: #ccc; padding: 14px; text-align: center; cursor: pointer; font-size: 13px; transition: 0.3s; }
+        .file-upload-label { display: block; background: var(--dark-bg); border: 1px dashed var(--gold); color: #ccc; padding: 14px; text-align: center; cursor: pointer; font-size: 13px; transition: 0.3s; border-radius: 3px; }
         .file-upload-label:hover { background: rgba(197, 160, 89, 0.08); color: var(--gold); }
 
-        .preview-box { display: none; align-items: center; gap: 15px; background: rgba(0,0,0,0.4); padding: 10px; border: 1px solid var(--gold-dim); }
+        .preview-box { display: none; align-items: center; gap: 15px; background: rgba(0,0,0,0.4); padding: 10px; border: 1px solid var(--gold-dim); border-radius: 3px; }
         .preview-box img { width: 70px; height: 70px; object-fit: cover; border: 1px solid var(--gold); }
         .preview-box span { font-size: 12px; color: #aaa; }
 
         .item-list { margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; margin-bottom: 10px; border: 1px solid rgba(197,160,89,0.2); gap: 10px; }
-        .item-thumb { width: 55px; height: 55px; object-fit: cover; border: 1px solid var(--gold-dim); flex-shrink: 0; }
-        .del-btn { background: #e74c3c; color: #fff; border: none; padding: 6px 12px; cursor: pointer; font-size: 12px; transition: 0.3s; flex-shrink: 0; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.42); padding: 12px 15px; margin-bottom: 10px; border: 1px solid rgba(197,160,89,0.22); gap: 12px; border-radius: 4px; flex-wrap: wrap; }
+        .item-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 220px; }
+        .item-thumb { width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--gold-dim); flex-shrink: 0; border-radius: 3px; }
+        .item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+        .edit-btn { background: #c5a059; color: #120d0a; border: none; padding: 7px 13px; cursor: pointer; font-size: 12px; font-weight: 600; border-radius: 3px; transition: 0.25s; }
+        .edit-btn:hover { background: #dfb96e; }
+        .del-btn { background: #e74c3c; color: #fff; border: none; padding: 7px 13px; cursor: pointer; font-size: 12px; font-weight: 600; border-radius: 3px; transition: 0.25s; }
         .del-btn:hover { background: #c0392b; }
+
         .back-link { display: inline-block; margin-top: 20px; color: #aaa; text-decoration: none; font-size: 13px; }
         .back-link:hover { color: var(--gold); }
 
         #custom-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000;
+            background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px;
         }
-        .popup-content { background: var(--panel-bg); border: 2px solid var(--gold); padding: 30px; max-width: 400px; width: 90%; text-align: center; }
+        .popup-content { background: var(--panel-bg); border: 2px solid var(--gold); padding: 30px; max-width: 400px; width: 100%; text-align: center; border-radius: 5px; }
         .popup-icon { font-size: 42px; margin-bottom: 10px; }
         .popup-content h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px; font-size: 1.3rem; }
         .popup-content p { font-size: 14px; color: #ccc; margin-bottom: 25px; line-height: 1.5; }
         .popup-buttons { display: flex; gap: 10px; justify-content: center; }
-        .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 10px 22px; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+        .popup-btn { background: var(--gold); color: #120d0a; border: none; padding: 10px 22px; font-weight: 600; cursor: pointer; text-transform: uppercase; font-size: 12px; border-radius: 3px; }
         .popup-btn-cancel { background: transparent; border: 1px solid #777; color: #aaa; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 14px; }
+            .img-source-tabs { flex-direction: column; }
+            .item-actions { width: 100%; justify-content: flex-end; }
+        }
     </style>
 </head>
 <body>
@@ -84,9 +110,14 @@
                 <h2 style="margin-bottom: 0;">Админ 2: Менюни Бошқариш</h2>
                 <button class="btn-gold" style="width: auto; padding: 8px 14px; font-size: 12px;" onclick="logoutStaff()">Чиқиш</button>
             </div>
-            <p style="font-size:13px; color:#aaa; margin-bottom:20px;">Бу ерда киритилган маҳсулотлар ва расмлар автоматик равишда базага сақланади ва телефонда ҳам кўринади.</p>
+            <p style="font-size:13px; color:#aaa; margin-bottom:20px;">Бу ерда маҳсулот қўшишингиз, нарх ёки тавсифни ўзгартиришингиз ва ўчиришингиз мумкин. Барчаси базага сақланади.</p>
             
-            <div class="form-group">
+            <div class="form-group" id="product-form">
+                <div id="editing-banner" class="editing-banner">
+                    <span>✏️ Таҳрирлаш режими: <strong id="editing-item-name"></strong></span>
+                    <button type="button" onclick="cancelEdit()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:4px 10px;border-radius:3px;cursor:pointer;font-size:11px;">Бекор қилиш</button>
+                </div>
+
                 <input type="text" id="p-name" placeholder="Маҳсулот номи (масалан: Махсус Торт)">
                 <input type="number" id="p-price" placeholder="Нархи (сўмда, масалан: 25000)">
                 <textarea id="p-desc" rows="2" placeholder="Қисқача тавсифи"></textarea>
@@ -112,7 +143,7 @@
                     <span id="img-preview-text">Расм тайёр!</span>
                 </div>
                 
-                <button class="btn-gold" id="add-prod-btn" onclick="addProduct()">Маҳсулотни Сайтга Қўшиш</button>
+                <button class="btn-gold" id="add-prod-btn" onclick="saveProduct()">Маҳсулотни Сайтга Қўшиш</button>
             </div>
 
             <div class="item-list">
@@ -149,6 +180,8 @@
 
         let uploadedImageBase64 = "";
         let currentImgMode = "file";
+        let editingIndex = null;
+        let editingExistingImg = "";
 
         const defaultProducts = [
             { name: "Иссиқ Булочка", price: 8000, desc: "Янги ёпилган, долчин ва майизли юмшоқ ширин булочка.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
@@ -202,6 +235,8 @@
                 showPreview(uploadedImageBase64, "Компьютердан танланган расм");
             } else if (mode === 'url' && document.getElementById('p-url').value.trim()) {
                 previewUrl();
+            } else if (editingExistingImg) {
+                showPreview(editingExistingImg, "Жорий сақланган расм");
             } else {
                 document.getElementById('img-preview-box').style.display = 'none';
             }
@@ -255,7 +290,7 @@
             const url = document.getElementById('p-url').value.trim();
             if (url.startsWith('http://') || url.startsWith('https://')) {
                 showPreview(url, "Интернетдан олинган расм кўриниши");
-            } else {
+            } else if (!editingExistingImg) {
                 document.getElementById('img-preview-box').style.display = 'none';
             }
         }
@@ -289,8 +324,56 @@
         }
 
         function logoutStaff() {
+            cancelEdit();
             document.getElementById('dashboard-screen').style.display = 'none';
             document.getElementById('login-screen').style.display = 'block';
+        }
+
+        function startEditProduct(index) {
+            const item = products[index];
+            if (!item) return;
+
+            editingIndex = index;
+            editingExistingImg = item.img || "";
+            uploadedImageBase64 = "";
+
+            document.getElementById('p-name').value = item.name || "";
+            document.getElementById('p-price').value = item.price || "";
+            document.getElementById('p-desc').value = item.desc || "";
+
+            if (editingExistingImg.startsWith("http")) {
+                switchImgMode("url");
+                document.getElementById('p-url').value = editingExistingImg;
+            } else {
+                switchImgMode("file");
+                document.getElementById('p-url').value = "";
+            }
+
+            if (editingExistingImg) {
+                showPreview(editingExistingImg, "Ҳозирги расм (янгилаш шарт эмас)");
+            }
+
+            document.getElementById('editing-item-name').textContent = item.name;
+            document.getElementById('editing-banner').style.display = 'flex';
+            document.getElementById('add-prod-btn').textContent = "Ўзгаришни Сақлаш (Янги тариф)";
+
+            document.getElementById('product-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function cancelEdit() {
+            editingIndex = null;
+            editingExistingImg = "";
+            uploadedImageBase64 = "";
+
+            document.getElementById('p-name').value = '';
+            document.getElementById('p-price').value = '';
+            document.getElementById('p-desc').value = '';
+            document.getElementById('p-file').value = '';
+            document.getElementById('p-url').value = '';
+            document.getElementById('file-label').textContent = "📁 Таом расмини юклаш (Файл танлаш)";
+            document.getElementById('img-preview-box').style.display = 'none';
+            document.getElementById('editing-banner').style.display = 'none';
+            document.getElementById('add-prod-btn').textContent = "Маҳсулотни Сайтга Қўшиш";
         }
 
         function renderAdminListOnly() {
@@ -300,14 +383,17 @@
                 if (!p) return;
                 list.innerHTML += `
                     <div class="item-row">
-                        <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="item-info">
                             <img src="${p.img}" class="item-thumb" alt="расм" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80'">
                             <div>
-                                <strong>${p.name}</strong> — <span style="color:var(--gold);">${Number(p.price).toLocaleString()} сўм</span>
+                                <strong>${p.name}</strong> — <span style="color:var(--gold); font-weight:600;">${Number(p.price).toLocaleString()} сўм</span>
                                 <div style="font-size:12px; color:#999; margin-top:3px;">${p.desc}</div>
                             </div>
                         </div>
-                        <button class="del-btn" onclick="deleteProduct(${index})">Ўчириш</button>
+                        <div class="item-actions">
+                            <button type="button" class="edit-btn" onclick="startEditProduct(${index})">✏️ Ўзгартириш</button>
+                            <button type="button" class="del-btn" onclick="deleteProduct(${index})">🗑 Ўчириш</button>
+                        </div>
                     </div>
                 `;
             });
@@ -316,14 +402,17 @@
             } catch (e) {}
         }
 
-        async function addProduct() {
+        async function saveProduct() {
             const name = document.getElementById('p-name').value.trim();
             const price = parseFloat(document.getElementById('p-price').value);
             const desc = document.getElementById('p-desc').value.trim() || "Мазали кафе маҳсулоти.";
             const urlInput = document.getElementById('p-url').value.trim();
             const btn = document.getElementById('add-prod-btn');
-            
-            let finalImg = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80";
+            const isEditing = editingIndex !== null;
+
+            let finalImg = isEditing && editingExistingImg
+                ? editingExistingImg
+                : "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80";
 
             if (currentImgMode === 'file' && uploadedImageBase64) {
                 finalImg = uploadedImageBase64;
@@ -331,40 +420,47 @@
                 finalImg = urlInput;
             }
 
-            if (!name || isNaN(price)) {
-                showMessage("⚠️", "Хатолик", "Маҳсулот номи ва нархини киритинг!");
+            if (!name || isNaN(price) || price <= 0) {
+                showMessage("⚠️", "Хатолик", "Маҳсулот номи ва тўғри нархини киритинг!");
                 return;
             }
 
             btn.disabled = true;
             btn.textContent = "Базага сақланмоқда...";
 
-            products.push({ name, price, desc, img: finalImg });
+            if (isEditing && products[editingIndex]) {
+                products[editingIndex] = { name, price, desc, img: finalImg };
+            } else {
+                products.push({ name, price, desc, img: finalImg });
+            }
+
             renderAdminListOnly();
             const saved = await saveToFirebase();
 
             btn.disabled = false;
-            btn.textContent = "Маҳсулотни Сайтга Қўшиш";
-
-            document.getElementById('p-name').value = '';
-            document.getElementById('p-price').value = '';
-            document.getElementById('p-desc').value = '';
-            document.getElementById('p-file').value = '';
-            document.getElementById('p-url').value = '';
-            document.getElementById('file-label').textContent = "📁 Таом расмини юклаш (Файл танлаш)";
-            document.getElementById('img-preview-box').style.display = 'none';
-            uploadedImageBase64 = "";
+            cancelEdit();
 
             if (saved) {
-                showMessage("✅", "Муваффақиятли", "Маҳсулот базага сақланди ва сайтда (телефонда ҳам) кўринади!");
+                showMessage(
+                    "✅",
+                    "Муваффақиятли",
+                    isEditing
+                        ? "Маҳсулот нархи ва маълумотлари янгиланди!"
+                        : "Маҳсулот базага сақланди ва сайтда кўринади!"
+                );
             } else {
-                showMessage("⚠️", "Қисман сақланди", "Маҳсулот браузерда қўшилди, лекин интернет ёки Firebase рухсатларини текширинг.");
+                showMessage("⚠️", "Қисман сақланди", "Маҳсулот браузерда янгиланди, лекин интернет ёки Firebase рухсатларини текширинг.");
             }
         }
 
         function deleteProduct(index) {
             showMessage("🗑", "Тасдиқлаш", "Ушбу маҳсулотни сайтдан ўчирмоқчимисиз?", async function() {
                 products.splice(index, 1);
+                if (editingIndex === index) {
+                    cancelEdit();
+                } else if (editingIndex !== null && editingIndex > index) {
+                    editingIndex -= 1;
+                }
                 renderAdminListOnly();
                 await saveToFirebase();
             });

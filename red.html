@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <!-- meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="date=no">
+        <meta name="format-detection" content="address=no">
+        <meta name="format-detection" content="email=no">
+        <meta name="description" content="Откройте для себя бренд косметических продуктов, который сочетает в себе натуральные ингредиенты и инновационные формулы. Наши кремы и сыворотки глубоко увлажняют и питают кожу, придавая ей здоровый вид.">
+        <meta name="keywords" content="BEVERLEE BELEEVER, beverlee, BEVERLEE BELEEVER club, сетевой маркетинг, косметические продукты, продукты для здоровья, товары из Японии">
+        <meta property="og:url" content="https://beverlee.alex-its.uz">
+        <meta property="og:site_name" content="beverlee.net">
+        <meta property="og:title" content="Интернет-магазин BEVERLee">
+        <meta property="og:description" content="Откройте для себя бренд косметических продуктов, который сочетает в себе натуральные ингредиенты и инновационные формулы. Наши кремы и сыворотки глубоко увлажняют и питают кожу, придавая ей здоровый вид.">
+        <meta property="og:image" content="/assets/img/og-image.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="/assets/img/og-image.jpg">
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+        <link rel="shortcut icon" href="/assets/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+        <link rel="manifest" href="/assets/site.webmanifest">
+
+        <title>Интернет-магазин BEVERLee</title>
+        <style>
+            .preloader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #ffffff;
+                transition: 0.5s cubic-bezier(0.38, 0.12, 0.61, 0.75) 0.8s;
+                overflow: hidden;
+                z-index: 10;
+            }
+
+            .preloader::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: url("/assets/img/preload-mask.png");
+                background-size: 2500% 100%;
+                background-repeat: no-repeat;
+                background-position: 0;
+                transition: 0.8s steps(24, start);
+                z-index: 1;
+            }
+
+            .preloader-logo {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: max(10rem, 140px);
+                height: max(2.5rem, 36px);
+            }
+
+            .preloader-logo .logo-elem {
+                width: max(2.5rem, 36px);
+                height: max(2.5rem, 36px);
+                z-index: 1;
+            }
+
+            .preloader-logo .logo-text {
+                width: max(7rem, 94px);
+                height: max(2.5rem, 34px);
+                z-index: 1;
+            }
+
+            .preloader-logo-stroke,
+            .preloader-logo-fill {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                gap: max(0.4rem, 10px);
+            }
+
+            .preloader-logo-stroke {
+                fill: transparent;
+                stroke: rgba(43, 42, 41, 0.2);
+                z-index: 1;
+                overflow: hidden;
+            }
+
+            .preloader-logo-stroke::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ffffff;
+                animation: preloader 3s cubic-bezier(0.38, 0.12, 0.61, 0.75) infinite;
+            }
+
+            .preloader-logo-fill {
+                fill: #2b2a29;
+            }
+
+            body.load .preloader-logo {
+                transform: scale(1);
+                opacity: 1;
+                transition-property: transform, opacity;
+                transition-duration: 0.5s;
+                transition-delay: 0.5s;
+                transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+            }
+
+            body.hide-preloader .preloader {
+                opacity: 0;
+                visibility: hidden;
+                transition-property: opacity, visibility;
+                transition-duration: 0.5s, 0s;
+                transition-delay: 0.5s, 1s;
+                transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1), linear;
+            }
+
+            body.hide-preloader .preloader::after {
+                background-position: 100%;
+            }
+
+            body.hide-preloader .preloader-logo {
+                transform: scale(0.8);
+                opacity: 0;
+                transition-property: transform, opacity;
+                transition-duration: 0.5s;
+                transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+            }
+
+            @keyframes preloader {
+                from {
+                    transform: translateX(0);
+                }
+
+                to {
+                    transform: translateX(100%);
+                }
+            }
+        </style>
+        <!-- preload source -->
+        <link rel="preload" href="/assets/css/fonts.min.css" as="style">
+        <link rel="preload" href="/assets/css/main.min.css?v=1795089956"" as="style">
+        <link rel="preload" href="/assets/js/main.min.js?v=1795089956"" as="script">
+        <!-- styles -->
+        <link rel="stylesheet" href="/assets/css/fonts.min.css">
+        <link rel="stylesheet" href="/assets/css/main.min.css?v=1795089956"">
+        <script>
+            let setVH = function () {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty(`--vh`, `${vh}px`);
+            };
+
+            setVH();
+
+            window.addEventListener(`resize`, setVH);
+        </script>
+    </head>
+    <body>
+        <!-- sprite -->
+        <div class="visually-hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="0 0 252.4 289.1" xml:space="preserve" id="icon-arrow-down"><path d="M138.2 249.7c1.6-1.5 2.5-2.4 3.5-3.4 29.7-29.6 59.3-59.3 88.9-88.9 2.8-2.8 5.7-4.8 9.8-4.7 5 .1 8.7 2.3 10.7 6.8 2.1 4.4 1.5 8.8-1.6 12.6-.8.9-1.6 1.6-2.4 2.4L139.4 282.2c-9.2 9.2-17.5 9.2-26.9 0-36-36-72-72-107.9-108-2.3-2.3-4.1-5.8-4.6-9-.8-4.8 1.6-8.8 6-11.1 4.5-2.4 8.9-2 13 1 1.1.8 2 1.8 3 2.8 29.6 29.5 59.1 59.1 88.7 88.6.9.9 1.8 1.6 3.2 3v-4.9c0-76.8.1-153.4 0-230 0-1.6-.1-3.3.1-4.8 1.1-6 6.7-10.3 12.7-9.8 5.9.5 10.5 5.3 11 11.3.1 1.2 0 2.5 0 3.7v229.1c.5 1.7.5 3.2.5 5.6z"/></symbol><symbol viewBox="0 0 289.1 252.3" xml:space="preserve" id="icon-arrow-left"><path d="M39.5 114.1h234.8c1.7 0 3.5-.1 5.2.3 5.9 1.2 9.9 6.7 9.5 12.6-.5 5.9-5.3 10.6-11.3 11-1.4.1-2.7 0-4.1 0H39.5c1.3 1.4 2.2 2.4 3.1 3.3 29.7 29.7 59.4 59.5 89.2 89.2 2.8 2.8 4.8 5.7 4.7 9.8-.1 5-2.4 8.7-6.8 10.7s-8.8 1.5-12.6-1.6c-.9-.7-1.6-1.5-2.4-2.3-36.2-36-72.2-72-108.3-108.1-8.5-8.5-8.5-17.2 0-25.7C42.5 77.1 78.7 40.9 115 4.8c2.2-2.1 5.3-3.9 8.2-4.6 4.9-1.1 9.1 1.2 11.7 5.6 2.6 4.4 2.3 8.8-.5 13-.9 1.3-2.1 2.4-3.3 3.6-29.4 29.4-58.7 58.8-88.1 88.2l-3.5 3.5z"/></symbol><symbol viewBox="0 0 212.5 212.6" xml:space="preserve" id="icon-arrow-link"><path d="M171.5 23.9c-2.2-.1-3.5-.1-4.9-.1-41.9-.1-83.9 0-125.7 0-4 0-7.4-.6-10.3-3.6-3.5-3.6-4.5-7.8-2.8-12.4C29.4 3.2 33 .5 37.8 0c1.2-.1 2.3 0 3.4 0h152.3c13 0 18.9 5.9 19 19 0 50.9 0 101.8-.1 152.7 0 3.3-1.2 7-3.1 9.6-2.8 4-7.4 5.1-12.1 3.6-4.9-1.5-7.7-4.9-8.5-9.9-.2-1.3-.1-2.7-.1-4.1-.1-41.8 0-83.6-.1-125.4 0-1.3-.1-2.4-.1-4.4l-3.5 3.5C130.6 98.9 76.4 153 22.3 207.2c-1.1 1.1-2.3 2.4-3.5 3.3-5 3.5-12 2.5-15.9-2.1-3.8-4.5-3.7-11.2.2-15.8.8-.9 1.8-1.8 2.6-2.6l162-162c1-1.3 2.1-2.4 3.8-4.1z"/></symbol><symbol viewBox="0 0 289.1 252.3" xml:space="preserve" id="icon-arrow-right"><path d="M249.5 114.2c-1.5-1.6-2.4-2.6-3.4-3.5-29.6-29.7-59.3-59.3-88.9-88.9-2.8-2.8-4.8-5.7-4.7-9.8.1-5 2.4-8.7 6.8-10.7 4.4-2.1 8.8-1.5 12.6 1.6.9.7 1.6 1.5 2.4 2.3L282 112.9c9.2 9.2 9.2 17.5 0 26.8-36 36-72 72-108.1 107.9-2.3 2.3-5.8 4.1-9 4.6-4.8.8-8.8-1.6-11.1-6-2.4-4.5-2-8.9 1-13 .8-1.1 1.8-2 2.8-3 29.5-29.6 59.1-59.1 88.6-88.7.9-.9 1.6-1.8 3-3.2H14.4c-1.6 0-3.3.1-4.8-.2-6-1.1-10.3-6.7-9.8-12.7.5-5.9 5.3-10.6 11.3-11 1.2-.1 2.5 0 3.7 0h229.1c1.7-.2 3.2-.2 5.6-.2z"/></symbol><symbol viewBox="0 0 19.2 16.9" id="icon-basket"><path d="M12.6 14.6c.1 0 .1 0 0 0 .4 0 .6-.2.6-.5l.6-3.4c.1-.3-.2-.6-.5-.6-.3-.1-.6.2-.6.5l-.5 3.4c-.1.3.1.6.4.6zm-6.7-.5c0 .3.3.5.6.5h.1c.3-.1.5-.3.5-.6l-.6-3.4c-.1-.3-.3-.5-.6-.5-.3.1-.5.3-.5.6l.5 3.4z"/><path d="M18.6 5.6h-2L12.3.2c-.2-.2-.5-.3-.8-.1s-.3.5-.1.8l3.8 4.7H4L7.8.9C8 .7 8 .3 7.7.1c-.3-.2-.6-.1-.8.1L2.5 5.6h-2c-.2 0-.5.3-.5.6v2.2c0 .3.3.6.6.6h.7l2.1 7.5c.1.2.3.4.5.4h11.3c.3 0 .5-.2.5-.4L17.9 9h.7c.3 0 .6-.3.6-.6V6.2c0-.3-.3-.6-.6-.6zm-3.8 10.1H4.4L2.4 9h14.3l-1.9 6.7zm3.3-7.8H1.2V6.7h16.9v1.2z"/><path d="M9.6 14.6c.3 0 .6-.3.6-.6v-3.4c0-.3-.3-.6-.6-.6s-.6.3-.6.6V14c0 .4.3.6.6.6z"/></symbol><symbol viewBox="0 0 23 21" id="icon-cart"><path d="M9.1 17.8c-.5 0-.8.4-.8.8s.4.8.8.8c.5 0 .8-.4.8-.8 0-.5-.3-.8-.8-.8zm-2.5.8c0-1.3 1.1-2.4 2.5-2.4s2.5 1.1 2.5 2.4c0 1.3-1.1 2.4-2.5 2.4s-2.5-1.1-2.5-2.4zm10.3-.8c-.5 0-.8.4-.8.8s.4.8.8.8c.5 0 .8-.4.8-.8 0-.5-.4-.8-.8-.8zm-2.5.8c0-1.3 1.1-2.4 2.5-2.4s2.5 1.1 2.5 2.4c0 1.3-1.1 2.4-2.5 2.4s-2.5-1.1-2.5-2.4zM0 .8C0 .4.4 0 .8 0h1.3c1 0 1.7.6 1.9 1.5l.4 1.8H20c2 0 3.5 1.9 2.9 3.8l-2 6.5c-.4 1.3-1.6 2.1-2.9 2.1H8.1c-1.4 0-2.6-1-3-2.3L2.4 1.8c0-.1-.1-.2-.3-.2H.8c-.4 0-.8-.3-.8-.8zm4.8 4 2 8.2c.1.6.7 1 1.3 1H18c.6 0 1.1-.4 1.3-1l2-6.5c.3-.9-.4-1.7-1.3-1.7H4.8z"/></symbol><symbol viewBox="0 0 500 500" id="icon-check"><path d="M6.7 219.4 194.1 500 493.3.5 188.9 344.9z"/></symbol><symbol viewBox="0 0 29.7 30.5" xml:space="preserve" id="icon-close"><path d="M29.7 1.8c0-.5-.2-.9-.5-1.3-.4-.3-.8-.5-1.3-.5s-.9.2-1.2.5L14.8 12.7 3 .5C2.6.2 2.2 0 1.7 0 1.3 0 .8.2.5.5.2.9 0 1.3 0 1.8s.2.9.5 1.2l11.9 12.2L.5 27.4c-.3.4-.5.8-.5 1.3s.2.9.5 1.3.8.5 1.2.5c.5 0 .9-.2 1.2-.5l11.9-12.2L26.7 30c.3.4.8.5 1.2.5.5 0 .9-.2 1.2-.5.3-.3.5-.8.5-1.3s-.2-.9-.5-1.3L17.3 15.2 29.2 3c.3-.3.5-.7.5-1.2z"/></symbol><symbol viewBox="0 0 15 15" id="icon-download"><path d="M8.3 8.4V.8C8.3.4 8 0 7.5 0s-.8.4-.8.8v7.6L3.9 5.8c-.3-.3-.9-.3-1.2 0-.3.3-.3.8 0 1.1l4.8 4.5 4.8-4.5c.3-.3.3-.8 0-1.1-.3-.3-.9-.3-1.2 0L8.3 8.4z"/><path d="M.8 10.3c.5 0 .8.4.8.8v1.3c0 .6.5 1.1 1.2 1.1h9.3c.6 0 1.2-.5 1.2-1.1v-1.3c0-.4.4-.8.8-.8.5 0 .8.4.8.8v1.3c0 1.5-1.3 2.7-2.8 2.7H2.8C1.3 15 0 13.8 0 12.3V11c0-.4.4-.7.8-.7z"/></symbol><symbol viewBox="0 0 19 13" id="icon-email"><path d="M.804.397A2.098 2.098 0 0 1 2.036 0h14.928c.447 0 .88.141 1.232.397L9.5 5.728.804.398Zm18.137 1.087c.039.152.059.308.059.466v9.1c0 .518-.215 1.013-.596 1.379-.382.365-.9.571-1.44.571H2.036c-.54 0-1.058-.206-1.44-.571A1.909 1.909 0 0 1 0 11.05v-9.1c0-.158.02-.314.06-.466l9.074 5.564a.704.704 0 0 0 .732 0l9.075-5.564Z"/></symbol><symbol viewBox="0 0 8 15.9" id="icon-facebook"><path d="M6.5 2.6H8V.1C7.7.1 6.8 0 5.8 0 3.7 0 2.3 1.3 2.3 3.7V6H0v2.8h2.3v7.1h2.8V8.8h2.2L7.7 6H5.1V4c0-.8.3-1.4 1.4-1.4z"/></symbol><symbol viewBox="0 0 383.2 383.3" xml:space="preserve" id="icon-globe"><path d="M180.3 0h22.5c1.1.2 2.2.6 3.2.7 15.7 1.1 31.2 3.9 46 9.3 70.5 25.7 113.4 75.3 128.2 149 1.4 7 2 14.3 3 21.4v23.2c-.2 1.1-.5 2.2-.7 3.3-1.4 9.2-2.1 18.6-4.2 27.7-24.1 104.4-128.2 168.6-232 143.2C46.8 353.6-16 255.3 3.6 154.6 18.6 76.9 80.3 16.5 158.2 3c7.3-1.2 14.7-2 22.1-3zM52.9 78.5C28 109.2 14.4 144.8 12.5 185.2h76.6c.5-30.1 4.7-59.3 12.7-87.3C85.3 91.4 69.3 85 52.9 78.5zm317.3 106.9c-1.9-40.7-15.6-76.3-40.4-106.9-16.6 6.6-32.6 12.9-48.9 19.4 8.1 28.2 12.2 57.6 12.7 87.5h76.6zm-40.4 119.8c24.9-30.8 38.5-66.4 40.4-106.7h-76.6c-.4 30-4.6 59.2-12.6 87.2 16.2 6.6 32.2 12.9 48.8 19.5zm-276.9 0c16.5-6.5 32.5-12.9 48.9-19.4-8.1-28.2-12.2-57.5-12.7-87.2H12.5c1.9 40.5 15.6 76 40.4 106.6zm227.8-119.9c-.4-29.2-4.5-57.3-12.3-84-23.8 2.8-47.1 5.6-70.4 8.4v75.6h82.7zm-95.9-75.6c-23.7-2.8-47-5.6-70.5-8.4-7.7 26.9-12 55.1-12.2 83.9h82.7v-75.5zm13.2 88.7V274c23.7 2.8 46.9 5.6 70.5 8.4 7.7-27 12-55.1 12.2-84H198zm-13.4 76.9v-76.7H102c.3 29 4.5 57.2 12.6 85.1 23.2-5.2 46.4-8.1 70-8.4zm79.2-187.4c-3.9-13.8-15.7-37.1-25.6-48.2-5.9-6.6-12.7-12.7-19.6-18.2-5.9-4.6-13-7.2-20.6-8v82.2c22.3-.5 44.1-2.8 65.8-7.8zm-65.9 200.5v81.8c7.9-.9 14.7-3.8 20.9-8.1C242.5 346 254 321.6 264 296c-14.1-4.2-53.7-8.8-66.1-7.6zM184.7 95.7V13.4c-11.7 1.8-21.3 7.4-29.8 15-14.4 13-23.6 29.4-31.3 46.9-1.8 4-3.2 8.2-4.9 12.5 21.9 5.1 43.6 7.4 66 7.9zm0 192.4c-22.5.2-44.2 2.9-66.2 7.8 1.9 4.8 3.6 9.3 5.5 13.7 7.7 17 16.8 33.1 30.9 45.8 8.5 7.6 18 13.2 29.7 14.9.1-27.4.1-54.6.1-82.2zM62.2 67.9c14.1 7.4 28.5 12.8 43.8 16.9 8.1-25.1 21.4-46.9 39.8-65.7-32.4 8.5-60.1 24.7-83.6 48.8zm214.6 16.9c15.5-4.2 29.8-9.5 43.7-16.9-23.6-24.3-51.3-40.5-84.6-49.4 19.4 19.3 32.7 41.1 40.9 66.3zm-.1 214.1c-8 25-21.3 46.7-39.4 65.5 32.3-8.4 59.8-24.6 83.2-48.6-14.2-7.4-28.5-12.9-43.8-16.9zm-132 65.8c-7.6-10.2-16-19.9-22.6-30.8-6.6-10.8-11.5-22.8-17.3-34.6-14.2 3.7-28.5 9.2-42.7 16.5 23.5 24.2 51.1 40.3 82.6 48.9z"/></symbol><symbol viewBox="0 0 15.9 15.9" id="icon-instagram"><path d="M11.6 0H4.3C1.9 0 0 1.9 0 4.3v7.3c0 2.4 1.9 4.3 4.3 4.3h7.3c2.4 0 4.3-1.9 4.3-4.3V4.3C15.9 1.9 14 0 11.6 0zM7.9 12.3c-2.4 0-4.3-2-4.3-4.3 0-2.4 2-4.3 4.3-4.3 2.4 0 4.3 2 4.3 4.3.1 2.3-1.9 4.3-4.3 4.3zm4.5-7.7c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3.7 0 1.3.6 1.3 1.3 0 .8-.6 1.3-1.3 1.3z"/><path d="M8 4.5C6.1 4.5 4.5 6.1 4.5 8s1.5 3.4 3.4 3.4 3.4-1.5 3.4-3.4c.1-1.9-1.5-3.5-3.3-3.5zM12.4 3c-.2 0-.4.1-.4.3 0 .2.2.4.4.4s.4-.2.4-.4-.2-.3-.4-.3z"/></symbol><symbol viewBox="0 0 128 128" id="icon-left"><path d="M84 108a3.988 3.988 0 0 1-2.828-1.172l-40-40a3.997 3.997 0 0 1 0-5.656l40-40c1.563-1.563 4.094-1.563 5.656 0s1.563 4.094 0 5.656L49.656 64l37.172 37.172a3.997 3.997 0 0 1 0 5.656A3.988 3.988 0 0 1 84 108z"/></symbol><symbol viewBox="0 0 41.5 41.5" id="icon-logo-elem"><path d="M0 41.5h41.5V0H0v41.5zm36.8-24.4h-7.5v7.2h7.4v2.6h-7.4V34h7.4v2.8H4.8V4.7h6.8V31h14.6v-4H15.7V4.7h10.6v2.7h-7.5v7.1h4.3v2.6h-4.3v7.1h7.4v-9.6h10.6v2.5z"/></symbol><symbol viewBox="0 0 113.4 41.5" id="icon-logo-text"><path d="M0 41.5V23.3h4.3c4.4 0 6.6 1.7 6.6 5 0 1.5-.8 2.7-2.5 3.5 2.4.6 3.7 2.1 3.7 4.3 0 3.7-2.5 5.5-7.5 5.5L0 41.5zm2.7-16V31h1.2c3 0 4.4-1 4.4-2.9 0-1.8-1.2-2.7-3.7-2.7H2.7zm0 7.5v6.3h2.5c2.8 0 4.2-1 4.2-2.9C9.4 34.1 8 33 5.2 33H2.7zm22.6 6.2v2.3H15.2V23.3h10.1v2.2h-7.5v5.9h7.5v2.1h-7.5v5.8h7.5zm13.2 0v2.3h-9.1V23.3H32v15.9h6.5zm13.1 0v2.3H40.5V23.3h11.1v2.2h-8.2v5.9h8.2v2.1h-8.2v5.8h8.2zm14.2 0v2.3H54.7V23.3h11.1v2.2h-8.3v5.9h8.3v2.1h-8.3v5.8h8.3zm9.7-.5 5.8-15.4h2.8l-7.3 18.2h-2.7l-7.3-18.2h2.9l5.8 15.4zm20.7.5v2.3H86.1V23.3h10.1v2.2h-7.5v5.9h7.5v2.1h-7.5v5.8h7.5zm6.7-13.7v16h-2.7V23.3h5.8c4.9 0 7.4 1.9 7.4 5.8 0 1.5-.6 2.7-1.7 3.7s-2.6 1.5-4.2 1.5l5.8 7.1h-3.4l-6.8-8.6c2.7 0 4.4-.1 5.1-.3 1.7-.5 2.6-1.7 2.6-3.5 0-2.4-1.9-3.6-5.5-3.6l-2.4.1zm0 7.2.2.2h-.2v-.2zM0 18.2V0h4.3C8.8 0 11 1.7 11 5c0 1.5-.8 2.7-2.5 3.5 2.4.6 3.7 2.1 3.7 4.3 0 3.7-2.5 5.5-7.5 5.5L0 18.2zm2.7-16v5.5h1.2c3 0 4.4-1 4.4-2.9 0-1.8-1.2-2.7-3.7-2.7H2.7zm0 7.5V16h2.5c2.8 0 4.2-1 4.2-2.9 0-2.2-1.4-3.3-4.2-3.3H2.7zm22.6 6.2v2.3H15.2V0h10.1v2.2h-7.5V8h7.5v2.1h-7.5v5.8h7.5zm60.8 0v2.3H75.9V0h2.9v15.9h7.3zm13.1 0v2.3H88.1V0h11.1v2.2H91V8h8.2v2.1H91v5.8h8.2zm14.2 0v2.3h-11.1V0h11.1v2.2h-8.3V8h8.3v2.1h-8.3v5.8h8.3zm-76.9-.5L42.6 0h3l-7.7 18.2h-2.8L27.3 0h3l6.2 15.4zm20.2.5v2.3H46.6V0h10.1v2.2h-7.5V8h7.5v2.1h-7.5v5.8h7.5zm6.7-13.7v16h-2.7V0h5.8c4.9 0 7.4 1.9 7.4 5.8 0 1.5-.6 2.7-1.7 3.7S69.6 11 68 11l5.8 7.1h-3.4l-6.8-8.6c2.7 0 4.4-.1 5.1-.3 1.7-.5 2.6-1.7 2.6-3.5 0-2.4-1.9-3.6-5.5-3.6l-2.4.1zm0 7.2.2.2h-.2v-.2z"/></symbol><symbol viewBox="0 0 287.6 191.7" xml:space="preserve" id="icon-menu"><path d="M13.1 24C3.8 24-2.2 16.2.8 8 2.5 3.2 6.1.6 11.1 0c1.2-.1 2.5 0 3.7 0h257.9c1.6 0 3.3-.1 4.9.2 5.9 1 10.1 6.4 9.9 12.3-.2 6.1-5.1 11-11.3 11.5-1.2.1-2.5 0-3.7 0H13.1zm261.3 59.9c9.3 0 15.3 7.7 12.4 15.9-1.7 4.8-5.3 7.4-10.3 8-1.2.1-2.5.1-3.7.1H14.9c-2.2 0-4.5-.1-6.6-.7-5.5-1.7-8.8-7.2-8.1-12.8.8-5.6 5.4-10 11.2-10.3 1.2-.1 2.5 0 3.7 0 42.8-.2 215.8-.2 259.3-.2zM14.5 191.7c-1.7 0-3.5 0-5.2-.3-5.9-1.3-9.8-6.9-9.3-12.8.6-5.9 5.4-10.5 11.5-10.8h262c1.5 0 3 0 4.5.3 5.9 1.3 9.9 6.7 9.5 12.6-.5 5.9-5.3 10.6-11.3 11-1.2.1-2.5 0-3.7 0h-258z"/></symbol><symbol viewBox="0 0 15 15" id="icon-phone"><path d="M4 11c2.5 2.5 3.9 3.2 5.9 3.8.4.1.8.2 1.2.2 1.1 0 2.2-.4 3-1.3l.3-.3c.6-.6.8-1.3.6-2-.4-1.2-1.2-2.1-2.5-2.5-.7-.2-1.4 0-1.9.5l-.7.7c-.4.4-1 .5-1.5.1C7 9.2 5.8 8 4.8 6.6c-.4-.4-.3-1 .1-1.4l.7-.7c.5-.5.7-1.3.5-1.9C5.7 1.3 4.8.5 3.6.1c-.7-.2-1.4 0-1.9.5l-.4.4C.1 2.1-.3 3.7.2 5.2.8 7.2 1.5 8.6 4 11z"/></symbol><symbol viewBox="0 0 15 22" id="icon-pin"><path d="M7.5 0C3.3 0 0 3 0 6.7c0 1 .6 2.8 1.5 4.9 2 4.5 5.3 10.1 5.3 10.1.1.2.4.3.7.3s.6-.2.7-.4c0 0 3.3-5.6 5.3-10.1.9-2 1.5-3.8 1.5-4.9C15 3 11.7 0 7.5 0zm0 9.3C6 9.3 4.7 8.1 4.7 6.7c0-1.4 1.3-2.6 2.8-2.6s2.8 1.2 2.8 2.6c0 1.4-1.3 2.6-2.8 2.6z"/></symbol><symbol viewBox="0 0 14 15" xml:space="preserve" id="icon-play"><path d="M13.5 6.7 3.1.7c-.3-.1-.6-.1-.9 0s-.4.5-.4.8v12c0 .3.2.6.5.8.1.1.3.1.5.1s.3 0 .5-.1l10.4-6c.1-.2.3-.4.3-.8s-.2-.6-.5-.8zm-10.4 6V2.3l9.1 5.2-9.1 5.2z"/></symbol><symbol viewBox="0 0 128 128" id="icon-right"><path d="M44 108a3.988 3.988 0 0 1-2.828-1.172 3.997 3.997 0 0 1 0-5.656L78.344 64 41.172 26.828c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l40 40a3.997 3.997 0 0 1 0 5.656l-40 40A3.988 3.988 0 0 1 44 108z"/></symbol><symbol viewBox="0 0 329.2 335.6" xml:space="preserve" id="icon-tel"><path d="M325.1 290.6c-13.3 23.2-32.3 39.7-59.6 44.5-2.9.5-6 .4-8 .5-19.7-.3-37-6.2-53.7-14-30.4-14.3-57.2-34-82.7-55.5-40.3-34-73-74.3-98.7-120.2C12.9 129 5.7 111.1 1.8 92c-6.2-30.8 3.7-55.7 26.8-76 6.3-5.6 13-10.5 20.9-13.6C61.9-2.4 73.7.2 82.5 10c15 16.8 29.8 33.6 44.5 50.6 10 11.7 9.7 29.4-.4 42.6-1.7 2.3-3.6 4.5-5.8 6.3-9.8 7.8-12.2 18-9 29.5 1.3 4.8 3.5 9.7 6.2 13.9 14.9 23 32.6 43.5 55.3 59.3 6.8 4.7 14 8.6 22.2 10.4 10.3 2.3 18.8-.3 25.8-8.4 11.7-13.6 29.8-16.7 44.7-8.1 2 1.2 4 2.6 5.7 4.2 15.6 14.7 31.2 29.5 46.8 44.2 11.1 10.4 14.1 23 6.6 36.1z"/></symbol><symbol viewBox="0 0 15.9 13.3" id="icon-telegram"><path d="M6.2 8.7 6 12.4c.4 0 .5-.2.7-.4l1.8-1.7 3.7 2.7c.7.4 1.1.2 1.3-.6l2.4-11.2c.2-1-.4-1.4-1-1.1L.7 5.5c-1 .4-.9.9-.2 1.2l3.6 1.1 8.4-5.2c.4-.3.8-.1.5.1l-6.8 6z"/></symbol><symbol viewBox="0 0 15.9 11.3" id="icon-youtube"><path d="M15.5 1.6v.1C15.3 1 14.8.5 14.1.3 12.9 0 8 0 8 0S3 0 1.7.3C1.1.5.5 1.1.3 1.7-.2 4.1-.2 7 .3 9.6v-.1c.2.7.7 1.2 1.4 1.4 1.3.4 6.3.4 6.3.4s5 0 6.2-.3c.7-.2 1.2-.7 1.4-1.4.2-1.1.3-2.4.3-3.7v-.3c0-1.4-.1-2.7-.4-4zM6.4 8V3.2l4.2 2.4L6.4 8z"/></symbol><symbol viewBox="0 0 24 24" xml:space="preserve" id="icon-сlinical-trials"><path d="m22.1 17-2.5-2.5-2.5 2.5c-.7.7-1 1.6-1 2.5 0 1 .4 1.8 1 2.5.7.7 1.6 1 2.5 1 1 0 1.8-.4 2.5-1 .7-.7 1-1.6 1-2.5.1-.9-.3-1.8-1-2.5zm-1 4.1c-.4.4-1 .6-1.5.6s-1.1-.2-1.5-.6c-.4-.4-.6-.9-.6-1.5s.2-1.1.6-1.5l1.5-1.5 1.5 1.5c.4.4.6.9.6 1.5.1.5-.2 1.1-.6 1.5zM14.6.9l-1 1 1 1L2.1 15.4C.3 17.2.3 20 2.1 21.8c.9.9 2 1.3 3.2 1.3s2.3-.5 3.2-1.3L21 9.3l1 1 1-1L14.6.9zM7.5 20.8c-.6.6-1.4.9-2.2.9s-1.6-.3-2.2-.9c-1.2-1.2-1.2-3.2 0-4.4l7.6-7.6 4.4 4.4-7.6 7.6zm8.6-8.6-4.4-4.4 3.9-3.9L20 8.3l-3.9 3.9z"/></symbol></svg>
+        </div>
+        <div class="preloader">
+            <div class="preloader-logo">
+                <div class="preloader-logo-fill">
+                    <svg class="logo-elem" width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-logo-elem"></use>
+                    </svg>
+                    <svg class="logo-text" width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-logo-text"></use>
+                    </svg>
+                </div>
+                <div class="preloader-logo-stroke">
+                    <svg class="logo-elem" width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-logo-elem"></use>
+                    </svg>
+                    <svg class="logo-text" width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-logo-text"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+                <div class="main-wrapper" data-page="catalog" >
+            <header class="header dark">
+                <a class="header-logo logo" href="/ru/" aria-label="Перейти на главную">
+                    <svg class="logo-elem" width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-logo-elem"></use>
+                    </svg>
+                    <svg class="logo-text" width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-logo-text"></use>
+                    </svg>
+                </a>
+                <details class="header-lang">
+                    <summary class="header-lang__opener">
+                        <span>Ru</span>
+                    </summary>
+                    <div class="header-lang__inner">
+                                                    <a class="header-lang__link" href="/kz/shop-uz">
+                                <span>Kz</span>
+                            </a>
+                            <a class="header-lang__link" href="/en/shop-uz">
+                                <span>En</span>
+                            </a>
+                            <a class="header-lang__link" href="/tr/shop-uz">
+                                <span>Tr</span>
+                            </a>
+                            <a class="header-lang__link" href="/uz/shop-uz">
+                                <span>Uz</span>
+                            </a>
+                            <a class="header-lang__link" href="/bg/shop-uz">
+                                <span>Bg</span>
+                            </a>
+                            <a class="header-lang__link" href="/tg/shop-uz">
+                                <span>Tg</span>
+                            </a>
+                    </div>
+                </details>
+                <div class="header-phone">
+                    <span class="header-phone__text">По вопросам писать на номер</span>
+                    <a class="header-phone__link" href="tel:+77072882828">
+                        <svg width="20" height="20" aria-hidden="true">
+                        <use xlink:href="#icon-tel"></use>
+                        </svg>
+                        <span>+7 (707) 288-28-28</span>
+                    </a>
+                </div>
+                <div class="header-col header-col--right">
+                    <a class="header-shop btn btn--outline btn--with-icon" href="/ru/shop">
+                        <svg width="20" height="20" aria-hidden="true">
+                        <use xlink:href="#icon-cart"></use>
+                        </svg>
+                        <span>Интернет-магазин</span>
+                    </a>
+                    <details class="header-dropdown office-dropdown">
+                        <summary class="header-dropdown__opener office-dropdown__opener">
+                            <span>Мой офис</span>
+                        </summary>
+                        <div class="header-dropdown__inner office-dropdown__inner">
+                            <a class="header-dropdown__link office-dropdown__link" href="https://beverlee-club.com/club/my-office/" target="_blank" rel="nofollow noopener">
+                                <svg width="20" height="20" aria-hidden="true">
+                                <use xlink:href="#icon-arrow-right"></use>
+                                </svg>
+                                <span>Magic</span>
+                            </a>
+                            <a class="header-dropdown__link office-dropdown__link" href="https://beauty.beverlee-club.com/club/my-office/" target="_blank" rel="nofollow noopener">
+                                <svg width="20" height="20" aria-hidden="true">
+                                <use xlink:href="#icon-arrow-right"></use>
+                                </svg>
+                                <span>Beauty</span>
+                            </a>
+                            <a class="header-dropdown__link office-dropdown__link" href="/ru/how" target="_blank">
+                                <svg width="20" height="20" aria-hidden="true">
+                                <use xlink:href="#icon-arrow-right"></use>
+                                </svg>
+                                <span>Как регистрироваться</span>
+                            </a>
+                        </div>
+                    </details>
+                </div>
+                <button class="header-menu menu-opener" type="button" data-modal-open="menu" aria-label="Открыть меню">
+                    <svg width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-menu"></use>
+                    </svg>
+                </button>
+            </header>
+
+
+
+<main class="main">
+    <section class="section section--top">
+        <header class="section-header section-header--offset section-header--shop">
+    <h1 class="section-header__title title title--l">
+        <small>Интернет-магазин</small>
+        <span class="violet">BEVERLEE BELEEVER</span>
+    </h1>
+    <div class="section-header-btns section-header-btns--wrap section-header-btns--shop">
+            <a class="section-header-btn btn btn--xxl" href="/ru/shop">
+        <span>Для Казахстана, России, Беларуси, Армении и Киргизии</span>
+    </a>
+    <a class="section-header-btn btn btn--violet active" href="/ru/shop-uz">
+        <span>Для Узбекистана</span>
+    </a>
+    <a class="section-header-btn btn" href="/ru/shop-tj">
+        <span>Для Таджикистана</span>
+    </a>
+    <a class="section-header-btn btn" href="/ru/shop-tr">
+        <span>Для Турции</span>
+    </a>
+    <a class="section-header-btn btn" href="/ru/shop-eu">
+        <span>Для Европы</span>
+    </a>
+
+    </div>
+</header>
+
+    </section>
+    <div class="main-inner">
+        <div class="section section--offset">
+            <ul class="products-card-list products-card-list--shop">
+                <li class="products-card-item products-card-item--l">
+                    <a class="products-card" href="https://beverlee-club.com/club/OnlineShopUz/" style="--c: #0892C0; --mainColor: #ffffff;">
+                        <div class="products-card-bg">
+                            <picture>
+                                <source srcset="/assets/img/products/bg.avif" type="image/avif">
+                                <img src="/assets/img/products/bg.jpg" width="200" loading="lazy" alt="Фоновое изображение Elitpack">
+                            </picture>
+                        </div>
+                        <div class="products-card-image">
+                            <picture>
+                                <source srcset="/assets/img/products/image-11.avif" type="image/avif">
+                                <img src="/assets/img/products/image-11.png" width="200" loading="lazy" alt="Фото продукта Elitpack">
+                            </picture>
+                        </div>
+                        <div class="products-card-inner">
+                            <div class="products-card-top">
+                                <h3 class="products-card-title title title--l">Elitpack</h3>
+                                <span class="products-card-text"><b>735$</b></span>
+                            </div>
+                            <div class="products-card-bottom">
+                                <div class="products-card-btn btn btn--white">
+                                    <span>Купить в BEVERLEE BELEEVER bank</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="products-card-item">
+                    <a class="products-card" href="https://beverlee-club.com/club/OnlineShopUz" style="--c: #0892C0; --mainColor: #ffffff;">
+                        <div class="products-card-bg">
+                            <picture>
+                                <img src="/assets/img/products/magic/bg.png" width="200" loading="lazy" alt="Фоновое изображение Elitpack">
+                            </picture>
+                        </div>
+                        <div class="products-card-image">
+                            <picture>
+                                <img src="/assets/img/products/magic/pack.png" width="200" loading="lazy" alt="Фото продукта Elitpack">
+                            </picture>
+                        </div>
+                        <div class="products-card-inner">
+                            <div class="products-card-top">
+                                <h3 class="products-card-title title title--l">Magic pack</h3>
+                                <p class="products-card-caption">6 пачек активного кальция + 3 пачки QH</p>
+                                <span class="products-card-text"><b>380$</b></span>
+                            </div>
+                            <div class="products-card-bottom">
+                                <div class="products-card-btn btn btn--white">
+                                    <span>Купить в BEVERLEE BELEEVER bank</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                                        <li class="products-card-item">
+                            <div class="products-card" style="--c: #d66fa7; --mainColor: #2b2a29;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/double-luxury/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/double-luxury/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Double Luxury">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-01.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-01.avif" width="200" loading="lazy" alt="Фото продукта Double Luxury">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Double Luxury</h3>
+                                        <p class="products-card-caption">4 флакона</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                    <div class="products-card-bottom" style="display:flex;flex-direction:column;align-items:stretch;gap:8px">
+    <a class="product-card-btn btn btn--white" href="https://beverlee-club.com/club/OnlineShopUz/">Купить в Magic</a>
+    <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в Beauty</a>
+</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #0f75ba; --mainColor: #2b2a29;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/for-beauty/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/for-beauty/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение For Beauty">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-02.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-02.avif" width="200" loading="lazy" alt="Фото продукта For Beauty">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">For Beauty</h3>
+                                        <p class="products-card-caption">5 пачек</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #8035ba; --mainColor: #ffffff;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/coenzyme/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/coenzyme/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Коэнзим QH">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-03.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-03.avif" width="200" loading="lazy" alt="Фото продукта Коэнзим QH">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Коэнзим QH</h3>
+                                        <p class="products-card-caption">6 пачек</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #ec7019; --mainColor: #ffffff;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/super-omega/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/super-omega/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Супер Омега">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-04.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-04.avif" width="200" loading="lazy" alt="Фото продукта Супер Омега">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Супер Омега</h3>
+                                        <p class="products-card-caption">5 пачек</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #127eae; --mainColor: #ffffff;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/calcium/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/calcium/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Активный коралловый кальций">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-05.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-05.avif" width="200" loading="lazy" alt="Фото продукта Активный коралловый кальций">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Активный коралловый кальций</h3>
+                                        <p class="products-card-caption">12 пачек</p>
+                                        <span class="products-card-text"><b>$450 + $10 за доставку</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #265b2c; --mainColor: #ffffff;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/top-force/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/top-force/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Top Force">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-06.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-06.avif" width="200" loading="lazy" alt="Фото продукта Top Force">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Top Force</h3>
+                                        <p class="products-card-caption">5 пачек</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #a66f20; --mainColor: #2b2a29;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/rootlife/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/rootlife/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Rootlife">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-07.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-07.avif" width="200" loading="lazy" alt="Фото продукта Rootlife">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Rootlife</h3>
+                                        <p class="products-card-caption">5 пачек</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #ac9314; --mainColor: #2b2a29;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/b-2/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/b-2/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Beauty B2">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-08.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-08.avif" width="200" loading="lazy" alt="Фото продукта Beauty B2">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Beauty B2</h3>
+                                        <p class="products-card-caption">5 шприцов</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #db4a4b; --mainColor: #ffffff;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/cleaning-master/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/cleaning-master/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Cleaning Master">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-09.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-09.avif" width="200" loading="lazy" alt="Фото продукта Cleaning Master">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Cleaning Master</h3>
+                                        <p class="products-card-caption">10 пачек + 10 спонжей</p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #568813; --mainColor: #2b2a29;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/assets/img/products/top-detox/bg-l.avif" type="image/avif">
+                                        <img src="/assets/img/products/top-detox/bg-l.avif" width="200" loading="lazy" alt="Фоновое изображение Top Detox">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/assets/img/products/image-10.avif" type="image/avif">
+                                        <img src="/assets/img/products/image-10.avif" width="200" loading="lazy" alt="Фото продукта Top Detox">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Top Detox</h3>
+                                        <p class="products-card-caption"></p>
+                                        <span class="products-card-text"><b>380$</b></span>
+                                    </div>
+                                                                                <div class="products-card-bottom">
+                                                <a class="product-card-btn btn btn--white" href="https://beauty.beverlee-club.com/club/OnlineShopUz/">Купить в BEVERLEE BELEEVER bank</a>
+                                            </div>
+                                                                                                                </div>
+                            </div>
+                        </li>
+                                                <li class="products-card-item">
+                            <div class="products-card" style="--c: #568813; --mainColor: #ffffff;">
+                                <div class="products-card-bg" style="--cStart: #FFC8E3;">
+                                    <picture>
+                                        <source srcset="/uploads/images/top-2/%D0%A4%D0%BE%D0%BD-%D0%B3%D0%BB1.jpg" type="image/avif">
+                                        <img src="/uploads/images/top-2/%D0%A4%D0%BE%D0%BD-%D0%B3%D0%BB1.jpg" width="200" loading="lazy" alt="Фоновое изображение Top Force 2">
+                                    </picture>
+                                </div>
+                                <div class="products-card-image">
+                                    <picture>
+                                        <source srcset="/uploads/images/top-2/TOP_FORCE2_1.png" type="image/avif">
+                                        <img src="/uploads/images/top-2/TOP_FORCE2_1.png" width="200" loading="lazy" alt="Фото продукта Top Force 2">
+                                    </picture>
+                                </div>
+                                <div class="products-card-inner">
+                                    <div class="products-card-top">
+                                        <h3 class="products-card-title title title--s">Top Force 2</h3>
+                                        <p class="products-card-caption">5 пачек</p>
+                                        <span class="products-card-text"><b>Скоро в продаже.</b></span>
+                                    </div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                    </ul>
+        </div>
+    </div>
+</main>
+    <footer class="footer footer--offset">
+        <div class="footer-copyright">© 2026 BEVERLEE BELEEVER. All Rights Reserved</div>
+        <div class="footer-text">Al Shmookh Business Center, UAQ Free Trade Zone, Umm Al Quwain, 1111, United Arab Emirates.</div>
+        <a class="footer-link" href="/ru/klinicheskie-ispytaniya">Клинические испытания</a>
+        <a class="footer-link" href="/uploads/public-offer.pdf" target="_blank">Публичная оферта</a>
+    </footer>
+<!--<div class="phone">
+    <span class="phone__text">По вопросам писать на номер</span>
+    <a class="phone__link" href="tel:+77072882828">
+        <svg width="20" height="20" aria-hidden="true">
+        <use xlink:href="#icon-tel"></use>
+        </svg>
+        <span>+7 (707) 288-28-28</span>
+    </a>
+</div>-->
+<a class="сlinical-trials-btn" href="/ru/klinicheskie-ispytaniya">
+    <svg width="20" height="20" aria-hidden="true">
+    <use xlink:href="#icon-сlinical-trials"></use>
+    </svg>
+    <span>Клинические испытания</span>
+</a>
+</div>
+
+<div class="modal-overlay" data-modal-overlay="menu">
+    <div class="modal modal--fullscreen menu" data-modal="menu" role="dialog" tabindex="-1" aria-hidden="true" aria-label="Меню">
+        <header class="menu-header">
+            <a class="menu-logo logo" href="/ru/" aria-label="Перейти на главную">
+                <svg class="logo-elem" width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-logo-elem"></use>
+                </svg>
+                <svg class="logo-text" width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-logo-text"></use>
+                </svg>
+            </a>
+            <details class="menu-lang lang">
+
+                <summary class="lang-opener">
+                    <span>Ru</span>
+                </summary>
+                <div class="lang-inner">
+                                            <a class="lang-link" href="/kz/shop-uz">
+                            <span>Kz</span>
+                        </a>
+                        <a class="lang-link" href="/en/shop-uz">
+                            <span>En</span>
+                        </a>
+                        <a class="lang-link" href="/tr/shop-uz">
+                            <span>Tr</span>
+                        </a>
+                        <a class="lang-link" href="/uz/shop-uz">
+                            <span>Uz</span>
+                        </a>
+                        <a class="lang-link" href="/bg/shop-uz">
+                            <span>Bg</span>
+                        </a>
+                        <a class="lang-link" href="/tg/shop-uz">
+                            <span>Tg</span>
+                        </a>
+                </div>
+            </details>
+            <div class="menu-header-col menu-header-col--right">
+                <a class="menu-shop btn btn--outline btn--with-icon" href="/ru/shop">
+                    <svg width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-cart"></use>
+                    </svg>
+                    <span>Интернет-магазин</span>
+                </a>
+                <details class="menu-office header-dropdown office-dropdown">
+                    <summary class="header-dropdown__opener office-dropdown__opener">
+                        <span>Мой офис</span>
+                    </summary>
+                    <div class="header-dropdown__inner office-dropdown__inner">
+                        <a class="header-dropdown__link office-dropdown__link" href="https://beverlee-club.com/club/my-office/" target="_blank" rel="nofollow noopener">
+                            <svg width="20" height="20" aria-hidden="true">
+                            <use xlink:href="#icon-arrow-right"></use>
+                            </svg>
+                            <span>Magic</span>
+                        </a>
+                        <a class="header-dropdown__link office-dropdown__link" href="https://beauty.beverlee-club.com/club/my-office/" target="_blank" rel="nofollow noopener">
+                            <svg width="20" height="20" aria-hidden="true">
+                            <use xlink:href="#icon-arrow-right"></use>
+                            </svg>
+                            <span>Beauty</span>
+                        </a>
+                    </div>
+                </details>
+            </div>
+            <button class="menu-close" type="button" data-modal-close="menu" aria-label="Закрыть меню">
+                <svg width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-close"></use>
+                </svg>
+            </button>
+        </header>
+        <div class="menu-inner">
+            <div class="menu-col">
+                <a class="menu-box-name" href="/ru/about">
+                    <span>Компания</span>
+                    <svg width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-arrow-link"></use>
+                    </svg>
+                </a>
+                <a class="menu-box-name" href="/ru/news">
+                    <span>Жизнь</span>
+                    <svg width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-arrow-link"></use>
+                    </svg>
+                </a>
+                <a class="menu-box-name" href="/ru/articles">
+                    <span>Интересное</span>
+                    <svg width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-arrow-link"></use>
+                    </svg>
+                </a>
+                <a class="menu-box-name" href="/ru/shop">
+                    <span>Магазин</span>
+                    <svg width="20" height="20" aria-hidden="true">
+                    <use xlink:href="#icon-arrow-link"></use>
+                    </svg>
+                </a>
+            </div>
+            <div class="menu-col">
+                <div class="menu-box">
+                    <a class="menu-box-name" href="/ru/products">
+                        <span>Продукты</span>
+                        <svg width="20" height="20" aria-hidden="true">
+                        <use xlink:href="#icon-arrow-link"></use>
+                        </svg>
+                    </a>
+                    <ul class="menu-box-list">
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/double-luxury">Double Luxury</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/for-beauty">For Beauty</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/coenzyme">Коэнзим QH</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/super-omega">Супер Омега</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/calcium">Активный коралловый кальций</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/top-force">Top Force</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/rootlife">Rootlife</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/beauty-b2">Beauty B2</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/cleaning-master">Cleaning Master</a>
+                        </li>
+                        <li class="menu-box-item">
+                            <a class="menu-box-link" href="/ru/top-detox">Top Detox</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <footer class="menu-footer ">
+            <span class="menu-footer-copyright">© 2026 BEVERLEE BELEEVER. All Rights Reserved</span>
+            <span class="menu-footer-text">Al Shmookh Business Center, UAQ Free Trade Zone, Umm Al Quwain, 1111, United Arab Emirates.</span>
+            <a class="menu-footer-link" href="https://docs.google.com/viewer?url=https://beverlee.net/uploads/files/clinical_result.pdf" target="_blank">Клинические испытания</a>
+            <a class="menu-footer-link" href="/uploads/public-offer.pdf" target="_blank">Публичная оферта</a>
+        </footer>
+    </div>
+</div>
+<script src="/assets/vendors/stub/stub.js" async></script>
+<script src="/assets/js/main.min.js?v=1795089956"" async></script>
+
+</body>
+</html>
